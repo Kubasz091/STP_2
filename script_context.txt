@@ -1,0 +1,375 @@
+Spis treści:
+1.  Regulacja PID - realizacje praktyczne
+    1.1. Regulacja PID z ograniczeniem całkowania
+    1.2. Regulacja kaskadowa
+    1.3. Regulacja z pomiarem zakłócenia
+2.  Dyskretne układy regulacji
+    2.1. Transformata Z
+    2.2. Emulacja
+        2.2.1. Metoda Eulera
+        2.2.2. Całkowanie metodą prostokątów i trapezów
+        2.2.3. Metoda przekształcenia biegunów i zer
+    2.3. Bezpośrednie projektowanie dyskretnych układów regulacji
+    2.4. Cyfrowa realizacja algorytmu PID
+    2.5. Symulacja dyskretnych układów regulacji
+    2.6. Metody przestrzeni stanu
+        2.6.1. Równania stanu liniowych, dyskretnych układów dynamicznych
+        2.6.2. Sterowalność i obserwowalność dyskretnych liniowych układów dynamicznych
+        2.6.3. Wyznaczanie transmitancji dyskretnej na podstawie dyskretnych równań stanu
+        2.6.4. Wyznaczanie równań stanu na podstawie transmitancji
+        2.6.5. Wyznaczanie dyskretnych równań stanu na podstawie ciągłych równań stanu
+        2.6.6. Projektowanie dyskretnych układów regulacji metodą sprzężenia od stanu
+        2.6.7. Dobór biegunów układu zamkniętego
+        2.6.8. Dyskretne obserwatory stanu pełnego rzędu
+        2.6.9. Dyskretne obserwatory zredukowanego rzędu
+        2.6.10. Wymuszanie zerowego uchybu ustalonego
+3.  Algorytmy regulacji predykcyjnej
+    3.1. Zasada regulacji predykcyjnej
+    3.2. Algorytm DMC
+        3.2.1. Zastosowanie modelu odpowiedzi skokowej do predykcji
+        3.2.2. Algorytm DMC w wersji analitycznej (bez ograniczeń)
+        3.2.3. Analityczna postać prawa regulacji DMC
+        3.2.4. Algorytm DMC w wersji analitycznej z rzutowaniem ograniczeń
+        3.2.5. Algorytm DMC w wersji numerycznej (z ograniczeniami)
+    3.3. Algorytm GPC
+        3.3.1. Zastosowanie równania różnicowego do predykcji
+        3.3.2. Algorytm GPC w wersji analitycznej (bez ograniczeń)
+        3.3.3. Analityczna postać prawa regulacji GPC
+        3.3.4. Algorytm GPC z ograniczeniami
+
+--- Początek skryptu ---
+
+**1. Regulacja PID - realizacje praktyczne** [cite: 591]
+
+Sygnał sterujący w algorytmie PID obliczany jest ze wzoru:
+$u(t)=u_{0}+K_{p}(e(t)+\frac{1}{T_{i}}\int_{0}^{t}e(\tau)d\tau+T_{d}\frac{de(t)}{dt})$ [cite: 591]
+gdzie: $K_{p}$ - współczynnik wzmocnienia, $T_{i}$ - stała czasowa całkowania, $T_{d}$ - stała czasowa różniczkowania. [cite: 591]
+Istnieje kilka struktur praktycznej realizacji algorytmu PID. [cite: 592] W strukturze standardowej transformata sygnału sterującego obliczana jest ze wzoru:
+$U(s)=K_{p}(1+\frac{1}{T_{i}s}+T_{d}s)E(s)$ [cite: 592]
+gdzie $E(s)=Y^{zad}(s)-Y(s)$. [cite: 592]
+W praktyce, zamiast idealnego członu różniczkującego $T_{d}s$, stosuje się różniczkowanie rzeczywiste:
+$\frac{T_{d}s}{\frac{T_{d}}{\alpha}s+1}$, gdzie $\alpha=1...5$. [cite: 593]
+Przy szybkich zmianach wartości zadanej stosuje się strukturę z różniczkowaniem sygnału wyjściowego. [cite: 593, 594] Transformata sygnału sterującego:
+$U(s)=K_{p}[(1+\frac{1}{T_{i}s})E(s)-T_{d}sY(s)]$ [cite: 594]
+
+**1.1. Regulacja PID z ograniczeniem całkowania** [cite: 595]
+
+W układach regulacji należy liczyć się z możliwością wystąpienia ograniczeń sygnału sterującego elementu wykonawczego. [cite: 595] Ograniczenia mogą dotyczyć maksymalnej i minimalnej wartości sygnału (nasycenie) lub szybkości zmian sygnału sterującego. [cite: 596, 597] Gdy obliczony sygnał sterujący $u(t)$ przekracza ograniczenia $(u_{min}, u_{max})$, algorytm nie pracuje poprawnie. [cite: 598, 599] Może to prowadzić do zjawiska "wind-up", gdzie człon całkujący regulatora gromadzi duży błąd, co utrudnia osiągnięcie stanu ustalonego. [cite: 600, 601]
+Rozwiązania tego problemu polegają na zatrzymaniu lub ograniczeniu operacji całkowania, gdy układ pracuje w nieliniowym obszarze charakterystyki elementu wykonawczego. [cite: 601] Jednym ze sposobów jest wprowadzenie korekty proporcjonalnej do różnicy między sygnałem obliczonym przez regulator $u(t)$ a rzeczywistym sygnałem sterującym $u_{w}(t)$, która oddziałuje na sygnał członu całkującego. [cite: 601]
+
+**1.2. Regulacja kaskadowa**
+
+W przypadkach, gdy klasyczny układ PID nie zapewnia wymaganej jakości regulacji, stosuje się bardziej złożone struktury, takie jak regulacja kaskadowa. [cite: 603] Wyprowadza się dodatkową wielkość pomocniczą z obiektu i doprowadza ją do regulatora. [cite: 604]
+Warunki stosowania regulacji kaskadowej:
+* Dostępność pomocniczej wielkości pomiarowej. [cite: 605]
+* Wrażliwość tej wielkości na zmiany istotnego zakłócenia. [cite: 605]
+* Wpływ zmiennej sterującej na zmienną pomocniczą. [cite: 605]
+* Szybsza dynamika pętli zmiennej pomocniczej niż pętli podstawowej zmiennej regulowanej. [cite: 605]
+Jeśli któryś z warunków nie jest spełniony, regulacja kaskadowa nie przynosi poprawy. [cite: 606]
+Struktura układu regulacji kaskadowej obejmuje podział obiektu na dwie części i wprowadzenie dwóch regulatorów. [cite: 607]
+Zalety regulacji kaskadowej:
+* Możliwość dobrej kompensacji zakłócenia występującego w pętli wewnętrznej. [cite: 609]
+* Linearyzacja (zmniejszenie nieliniowości) obiektu objętego pętlą wewnętrzną. [cite: 610]
+
+**1.3. Regulacja z pomiarem zakłócenia (feedforward)** [cite: 606]
+
+Jeśli zadaniem regulacji jest kompensacja wpływu zakłóceń, praca regulatora jest ułatwiona, gdy dysponuje on pomiarem wartości tych zakłóceń. [cite: 605] Takie układy nazywa się układami z regulacją z pomiarem zakłóceń (feedforward) lub układami zamknięto-otwartymi. [cite: 606]
+W przypadku idealnym (dokładny pomiar zakłócenia i doskonały model matematyczny toru zakłóceń), transmitancję kompensatora zakłócenia $G_{ff}(s)$ określa wzór:
+$G_{ff}(s)=-\frac{G_{z}(s)}{G(s)}$ [cite: 612]
+gdzie $G_{z}(s)$ to transmitancja toru zakłócenia, a $G(s)$ to transmitancja obiektu. Transmitancja $G_{ff}(s)$ musi być realizowalna. [cite: 612, 613]
+W praktyce modele są obarczone błędami, a regulacja w pętli otwartej nie jest idealna, dlatego stosuje się pętlę sprzężenia zwrotnego do wyzerowania uchybu ustalonego. [cite: 614, 615]
+Warunki stosowania sprzężenia od zakłócenia:
+* Niezadowalająca jakość regulacji przy użyciu klasycznego układu. [cite: 617]
+* Mierzone istotne zakłócenie. [cite: 618]
+* Wolniejsza dynamika toru zakłócenia niż dynamika głównego toru procesu. [cite: 618]
+* Znane modele toru zakłócenia i toru sterowania. [cite: 619]
+
+**2. Dyskretne układy regulacji** [cite: 620]
+
+Obecnie powszechnie stosuje się regulatory mikroprocesorowe, umożliwiające implementację złożonych algorytmów regulacji. [cite: 620] W cyfrowym układzie regulacji sygnał wyjściowy $y(t)$ jest próbkowany w dyskretnych chwilach $T, 2T, 3T,...$ (gdzie $T$ to okres próbkowania) i przetwarzany na postać cyfrową. [cite: 620] Regulator cyfrowy $R(z)$ jest opisany równaniem różnicowym. [cite: 620] Sygnał sterujący $u(kT)$ jest przetwarzany na sygnał analogowy $u_a(kT)$ i następnie, za pomocą ekstrapolatora (np. zerowego rzędu - ZOH), na ciągły sygnał sterujący procesem $u(t)$. [cite: 620, 621]
+Istnieją dwie główne metody projektowania cyfrowego algorytmu regulacji:
+* **Emulacja**: Projektuje się ciągły regulator $R(s)$ dla danego obiektu $G(s)$, a następnie aproksymuje się go równaniem różnicowym. [cite: 622, 624]
+* **Bezpośrednie projektowanie**: Projektuje się cyfrowy algorytm regulacji bezpośrednio, często wykorzystując dyskretny model procesu. [cite: 624, 625]
+
+**2.1. Transformata Z** [cite: 626]
+
+Do analizy układów dyskretnych stosuje się transformatę Z, zdefiniowaną jako:
+$Z\{f(k)\} = F(z) = \sum_{k=0}^{\infty} f(k)z^{-k}$ [cite: 627]
+Przy zerowych warunkach początkowych, opóźnienie o jedną próbkę odpowiada mnożeniu przez $z^{-1}$. [cite: 627, 629] Pozwala to na łatwe przejście od równania różnicowego do transmitancji dyskretnej. [cite: 627]
+Twierdzenie o wartości końcowej dla układów dyskretnych:
+$\lim_{k\to\infty} x(k) = \lim_{z\to 1} (1-z^{-1})X(z)$ [cite: 630]
+pod warunkiem, że bieguny $(1-z^{-1})X(z)$ leżą wewnątrz koła jednostkowego. [cite: 630]
+Wzmocnienie statyczne obiektu dyskretnego $G(z)$ można obliczyć jako $K_{stat} = \lim_{z\to 1} G(z)$. [cite: 629]
+
+**2.2. Emulacja** [cite: 629]
+
+Emulacja polega na aproksymacji ciągłego algorytmu regulacji (równanie różniczkowe) algorytmem dyskretnym (równanie różnicowe). [cite: 629]
+
+**2.2.1. Metoda Eulera** [cite: 629]
+
+Jest to najprostsza metoda aproksymacji, gdzie pochodną $\dot{x}(t)$ zastępuje się różnicą:
+$\dot{x}(t) \approx \frac{x(k+1)-x(k)}{T}$ (różnica progresywna) [cite: 629]
+lub
+$\dot{x}(t) \approx \frac{x(k)-x(k-1)}{T}$ (różnica wsteczna) [cite: 629]
+gdzie $T$ to okres próbkowania. [cite: 629]
+
+**2.2.2. Całkowanie metodą prostokątów i trapezów** [cite: 632]
+
+Przyrost sygnału sterującego jest równy polu pod krzywą uchybu. [cite: 633]
+* **Metoda prostokątów**: $u(k) - u(k-1) = T \cdot e(k-1)$ [cite: 633]
+* **Metoda trapezów (Tustina)**: $u(k) - u(k-1) = T \frac{e(k)+e(k-1)}{2}$ [cite: 635]
+Metoda Tustina jest często używana do obliczania transmitancji dyskretnej na podstawie ciągłej, poprzez podstawienie:
+$s = \frac{2}{T} \frac{1-z^{-1}}{1+z^{-1}}$ lub $s = \frac{2}{T} \frac{z-1}{z+1}$ [cite: 635]
+
+**2.2.3. Metoda przekształcenia biegunów i zer** [cite: 636]
+
+Położenie biegunów na płaszczyźnie $s$ (układy ciągłe) i $z$ (układy dyskretne) determinuje stabilność i właściwości układu. [cite: 636, 637]
+Biegunowi ciągłemu $s_0$ odpowiada biegun dyskretny $z_0 = e^{s_0 T}$. [cite: 637]
+Warunkiem stabilności dla układów ciągłych jest położenie biegunów w lewej półpłaszczyźnie $s$, a dla dyskretnych - wewnątrz koła jednostkowego na płaszczyźnie $z$. [cite: 637]
+Metoda polega na znalezieniu dyskretnych biegunów i zer odpowiadających wszystkim biegunom i zerom transmitancji ciągłej $R(s)$. [cite: 638]
+$R_d(z) = K \frac{(z-z_{01})(z-z_{02})...}{(z-z_{b1})(z-z_{b2})...}$ [cite: 638]
+gdzie $z_{0i} = e^{s_{0i}T}$ i $z_{bi} = e^{s_{bi}T}$. [cite: 638] Współczynnik $K$ dobiera się tak, aby wzmocnienia statyczne obu członów (ciągłego i dyskretnego) były jednakowe. [cite: 639]
+
+**2.3. Bezpośrednie projektowanie dyskretnych układów regulacji** [cite: 641]
+
+W tej metodzie wykorzystuje się dyskretny model procesu, do którego bezpośrednio dobiera się cyfrowy algorytm regulacji. [cite: 642] Pierwszym krokiem jest wyznaczenie dyskretnego modelu procesu ciągłego. [cite: 643] Na podstawie modelu ciągłego można dokładnie wyznaczyć model dyskretny. [cite: 644]
+Dla obiektu ciągłego $G(s)$ i ekstrapolatora zerowego rzędu (ZOH), dyskretną transmitancję obiektu $G(z)$ oblicza się ze wzoru:
+$G(z) = (1-z^{-1})Z\{\frac{G(s)}{s}\}$ [cite: 646]
+gdzie $Z\{\cdot\}$ oznacza transformatę Z. [cite: 646]
+Do projektowania dyskretnych układów regulacji stosuje się metody analogiczne do tych dla układów ciągłych (częstotliwościowe, przestrzeni stanu). [cite: 649]
+Równanie charakterystyczne układu zamkniętego: $1+R(z)G(z)=0$. [cite: 650]
+
+**2.4. Cyfrowa realizacja algorytmu PID** [cite: 661]
+
+Algorytm PID w postaci ciągłej:
+$u(t) = K_p(e(t) + \frac{1}{T_i}\int e(\tau)d\tau + T_d \frac{de(t)}{dt})$ [cite: 661]
+Dyskretna realizacja:
+* Człon proporcjonalny: $u_P(k) = K_p e(k)$ [cite: 662]
+* Człon całkujący (metoda trapezów): $u_I(k) = u_I(k-1) + K_p \frac{T}{T_i} \frac{e(k)+e(k-1)}{2}$ [cite: 663]
+* Człon różniczkujący (metoda Eulera wsteczna): $u_D(k) = K_p \frac{T_d}{T} (e(k)-e(k-1))$ [cite: 663]
+Równanie różnicowe cyfrowego algorytmu PID (całkowanie metodą trapezów):
+$u(k) = u(k-1) + r_0 e(k) + r_1 e(k-1) + r_2 e(k-2)$ (postać pozycyjna)
+lub w formie przyrostowej, a następnie transmitancyjnej:
+$U(z)/E(z) = \frac{r_0 + r_1 z^{-1} + r_2 z^{-2}}{1-z^{-1}}$ [cite: 664]
+gdzie współczynniki $r_0, r_1, r_2$ zależą od $K_p, T_i, T_d, T$. [cite: 664]
+$r_0 = K_p(1 + \frac{T}{2T_i} + \frac{T_d}{T})$ [cite: 664]
+$r_1 = -K_p(1 - \frac{T}{2T_i} + \frac{2T_d}{T})$ [cite: 664]
+$r_2 = K_p \frac{T_d}{T}$ [cite: 664]
+
+**2.5. Symulacja dyskretnych układów regulacji** [cite: 665]
+
+Znając dyskretny model obiektu i dyskretny algorytm regulatora, można łatwo przeprowadzić symulację. [cite: 665]
+Równanie różnicowe obiektu: $y(k) = f(y(k-1), ..., u(k-d), ...)$ [cite: 668]
+Równanie różnicowe regulatora: $u(k) = g(e(k), e(k-1), ..., u(k-1), ...)$ [cite: 668]
+Symulacja polega na iteracyjnym obliczaniu $y(k)$ i $u(k)$ w kolejnych krokach czasowych $k$. [cite: 670, 671]
+
+**2.6. Metody przestrzeni stanu** [cite: 672]
+
+Dynamikę układów dyskretnych można opisać równaniami różnicowymi w przestrzeni stanu. [cite: 672]
+Ogólna postać modelu nieliniowego:
+$x(k+1) = f(x(k), u(k), k)$ [cite: 672]
+$y(k) = g(x(k), u(k), k)$ [cite: 672]
+
+**2.6.1. Równania stanu liniowych, dyskretnych układów dynamicznych** [cite: 673]
+
+Dla układu deterministycznego, stacjonarnego, o jednym wejściu i jednym wyjściu:
+$x(k+1) = Ax(k) + Bu(k)$ [cite: 674]
+$y(k) = Cx(k) + Du(k)$ [cite: 674]
+gdzie A, B, C, D są macierzami o odpowiednich wymiarach. [cite: 674]
+
+**2.6.2. Sterowalność i obserwowalność dyskretnych liniowych układów dynamicznych** [cite: 675]
+
+Warunki sterowalności i obserwowalności dla układów dyskretnych są analogiczne do układów ciągłych. [cite: 675]
+* Układ jest sterowalny, jeśli macierz sterowalności $S_c = [B \ AB \ A^2B \ ... \ A^{n-1}B]$ ma pełny rząd $n$. [cite: 675]
+* Układ jest obserwowalny, jeśli macierz obserwowalności $S_o = [C^T \ (CA)^T \ (CA^2)^T \ ... \ (CA^{n-1})^T]^T$ ma pełny rząd $n$. [cite: 675]
+
+**2.6.3. Wyznaczanie transmitancji dyskretnej na podstawie dyskretnych równań stanu** [cite: 676]
+
+Po zastosowaniu transformaty Z do równań stanu (przy zerowych warunkach początkowych):
+$zX(z) = AX(z) + BU(z)$ [cite: 676]
+$Y(z) = CX(z) + DU(z)$ [cite: 676]
+Transmitancja dyskretna $G(z) = Y(z)/U(z)$ dana jest wzorem:
+$G(z) = C(zI-A)^{-1}B + D$ [cite: 676]
+
+**2.6.4. Wyznaczanie równań stanu na podstawie transmitancji** [cite: 675]
+
+Istnieje kilka metod wyboru zmiennych stanu i wyznaczania macierzy A, B, C, D dla danej transmitancji dyskretnej $G(z) = \frac{b_m z^m + ... + b_0}{z^n + a_{n-1}z^{n-1} + ... + a_0}$. [cite: 675, 676] Dwie popularne formy kanoniczne to forma kanoniczna sterowalna i obserwowalna.
+Dla transmitancji w postaci: $G(z) = \frac{b_0 + b_1 z^{-1} + ... + b_m z^{-m}}{1 + a_1 z^{-1} + ... + a_n z^{-n}}$ [cite: 677]
+(zakładając $m \le n$ i normalizację $a_0=1$ w mianowniku $1+a_1z^{-1}+...$ )
+Można uzyskać reprezentacje stanu, np. w formie kanonicznej sterowalności (wariant I metody bezpośredniej) lub obserwowalności (wariant II metody bezpośredniej). [cite: 680, 681, 683]
+
+**2.6.5. Wyznaczanie dyskretnych równań stanu na podstawie ciągłych równań stanu**
+
+Rozwiązanie ciągłego równania stanu $\dot{x}(t) = Ax(t) + Bu(t)$ można wykorzystać do dyskretyzacji. [cite: 683]
+Zakładając ekstrapolator zerowego rzędu ($u(t)$ stałe w przedziale $[kT, kT+T)$), otrzymujemy dyskretne równanie stanu:
+$x(k+1) = A_d x(k) + B_d u(k)$ [cite: 683]
+gdzie:
+$A_d = e^{AT}$ [cite: 683]
+$B_d = \int_0^T e^{A\eta} d\eta B = A^{-1}(e^{AT}-I)B$ (jeśli A jest odwracalna) [cite: 683]
+Macierze $C_d = C$ i $D_d = D$. [cite: 683]
+
+**2.6.6. Projektowanie dyskretnych układów regulacji metodą sprzężenia od stanu** [cite: 685]
+
+Sygnał sterujący jest liniową funkcją zmiennych stanu: $u(k) = -Kx(k)$. [cite: 687]
+Równanie charakterystyczne układu zamkniętego: $\det(zI - (A-BK)) = 0$. [cite: 688]
+Wektor $K$ dobiera się tak, aby pierwiastki równania charakterystycznego (bieguny układu zamkniętego) miały zadane wartości $z_1, ..., z_n$, leżące wewnątrz koła jednostkowego dla zapewnienia stabilności. [cite: 688]
+
+**2.6.7. Dobór biegunów układu zamkniętego** [cite: 696]
+
+Warunkiem stabilności układów dyskretnych jest położenie biegunów układu zamkniętego wewnątrz okręgu jednostkowego na płaszczyźnie $z$. [cite: 696]
+Oscylacje w układzie dyskretnym mogą pojawić się, jeśli układ ma ujemne bieguny rzeczywiste (tzw. bieguny dzwoniące). [cite: 696] Dlatego zaleca się wybieranie biegunów o dodatniej części rzeczywistej. [cite: 696]
+Koncepcja bieguna dominującego: jeden lub para sprzężonych biegunów, które mają największy wpływ na dynamikę układu (największa część rzeczywista, najbliżej okręgu jednostkowego). [cite: 697, 698] Pozostałe bieguny powinny być położone bliżej środka okręgu. [cite: 698]
+Zalecenia projektowe:
+* Bieguny wewnątrz koła jednostkowego, z dodatnimi częściami rzeczywistymi. [cite: 705]
+* Biegun najbliższy $1+j0$ powinien być jednokrotny i rzeczywisty. [cite: 706]
+* Dla pary sprzężonych biegunów dominujących $z_0 = |z_0|e^{\pm j\beta}$, aby zapewnić odpowiednie tłumienie $\xi_0$, ich położenie powinno spełniać $|z_0| = (1-\xi_0)^{2\beta/\pi}$. [cite: 702, 703]
+Do doboru biegunów można użyć metod minimalizacji wskaźników jakości, np. regulacji liniowo-kwadratowej (LQR). [cite: 710, 711]
+
+**2.6.8. Dyskretne obserwatory stanu pełnego rzędu** [cite: 712]
+
+Służą do estymacji niedostępnych pomiarowo zmiennych stanu. [cite: 712]
+Równanie obserwatora:
+$\hat{x}(k+1) = A\hat{x}(k) + Bu(k) + L(y(k) - \hat{y}(k))$ [cite: 712]
+gdzie $\hat{y}(k) = C\hat{x}(k) + Du(k)$. [cite: 712]
+Równanie charakterystyczne obserwatora: $\det(zI - (A-LC)) = 0$. [cite: 712]
+Wektor $L$ dobiera się tak, aby bieguny obserwatora miały zadane, stabilne wartości (szybsze niż bieguny regulatora). [cite: 712]
+
+**2.6.9. Dyskretne obserwatory zredukowanego rzędu** [cite: 713]
+
+Stosowane, gdy część zmiennych stanu jest mierzona. [cite: 713]
+Zakładając, że macierz wyjścia ma postać $C = [I \ 0]$ (po ewentualnej transformacji zmiennych stanu), wektor stanu można podzielić na część mierzoną $y(k)$ i niemierzoną $w(k)$. [cite: 713]
+Obserwator zredukowany estymuje tylko niemierzoną część $w(k)$. [cite: 713]
+Definiuje się pomocniczy stan $z(k) = w(k) - Ly(k)$. [cite: 714] Równanie obserwatora dla $z(k)$:
+$z(k+1) = (A_{22}-LA_{12})z(k) + (A_{22}-LA_{12})Ly(k) + (A_{21}-LA_{11})y(k) + (B_2-LB_1)u(k)$ [cite: 714]
+gdzie $A_{ij}, B_i$ są submacierzami macierzy A i B. [cite: 714]
+Równanie charakterystyczne: $\det(zI - (A_{22}-LA_{12})) = 0$. [cite: 715] Wektor $L$ dobiera się dla uzyskania pożądanych biegunów obserwatora. [cite: 715]
+
+**2.6.10. Wymuszanie zerowego uchybu ustalonego** [cite: 712]
+
+Aby uzyskać zerowy uchyb ustalony dla niezerowej wartości zadanej, wprowadza się całkowanie uchybu $e(k) = y^{zad}(k) - y(k)$ jako dodatkową zmienną stanu $x_e(k)$. [cite: 712, 713]
+$x_e(k+1) = x_e(k) + T e(k)$ (całkowanie metodą prostokątów) [cite: 714]
+Rozszerzony model stanu:
+$\begin{bmatrix} x(k+1) \\ x_e(k+1) \end{bmatrix} = \begin{bmatrix} A & 0 \\ -TC & 1 \end{bmatrix} \begin{bmatrix} x(k) \\ x_e(k) \end{bmatrix} + \begin{bmatrix} B \\ 0 \end{bmatrix} u(k) + \begin{bmatrix} 0 \\ T \end{bmatrix} y^{zad}(k)$ [cite: 715]
+Prawo regulacji: $u(k) = -[K \ K_e] \begin{bmatrix} x(k) \\ x_e(k) \end{bmatrix}$. [cite: 715] Wektor sprzężeń $[K \ K_e]$ dobiera się dla zapewnienia stabilności i pożądanej dynamiki rozszerzonego układu. [cite: 716]
+
+**3. Algorytmy regulacji predykcyjnej** [cite: 726]
+
+**3.1. Zasada regulacji predykcyjnej** [cite: 726]
+
+Regulatory predykcyjne (MPC - Model Predictive Control) to zaawansowane algorytmy regulacji. [cite: 727, 728]
+Główne zalety:
+* Uwzględnianie ograniczeń na sygnały wejściowe i wyjściowe. [cite: 729]
+* Efektywna regulacja procesów wielowymiarowych. [cite: 729]
+* Możliwość projektowania nieliniowych regulatorów predykcyjnych. [cite: 729]
+* Możliwość uwzględnienia mierzonych zakłóceń. [cite: 729]
+* Uniwersalna zasada działania, możliwość stosowania różnych modeli. [cite: 729]
+
+Zasada działania (przesuwny horyzont):
+W każdej chwili próbkowania $k$:
+1.  Na podstawie modelu procesu, pomiarów i trajektorii wartości zadanej, wyznacza się sekwencję przyszłych wartości sygnału sterującego $\Delta U(k) = [\Delta u(k|k), ..., \Delta u(k+N_u-1|k)]^T$ na horyzoncie sterowania $N_u$. [cite: 733, 734] Zakłada się, że $\Delta u(k+p|k)=0$ dla $p \ge N_u$. [cite: 734]
+2.  Prognozuje się zachowanie procesu na horyzoncie predykcji $N$. [cite: 740, 741] Trajektoria prognozowana $\hat{Y}(k)$ zależy od $\Delta U(k)$ oraz poprzednich wartości sygnałów. [cite: 744]
+3.  Sekwencję $\Delta U(k)$ oblicza się minimalizując wskaźnik jakości, np. kwadratowy:
+    $J(k) = \sum_{p=1}^{N} \phi_p (y^{zad}(k+p|k) - \hat{y}(k+p|k))^2 + \sum_{p=0}^{N_u-1} \lambda_p (\Delta u(k+p|k))^2$ [cite: 749]
+    $\phi_p, \lambda_p$ to wagi. [cite: 749]
+4.  Do sterowania procesu wykorzystuje się tylko pierwszy element wyznaczonej sekwencji: $u(k) = u(k-1) + \Delta u(k|k)$. [cite: 736]
+5.  W kolejnej chwili próbkowania $k+1$ procedura jest powtarzana. [cite: 736]
+
+Ograniczenia:
+* Na wartość sterowania: $u_{min} \le u(k+p|k) \le u_{max}$ [cite: 760]
+* Na przyrosty sterowania: $\Delta u_{min} \le \Delta u(k+p|k) \le \Delta u_{max}$ [cite: 760]
+* Na wartość wyjścia: $y_{min} \le \hat{y}(k+p|k) \le y_{max}$ [cite: 760]
+Minimalizacja wskaźnika jakości z uwzględnieniem ograniczeń (dla modelu liniowego) prowadzi do zadania programowania kwadratowego (QP). [cite: 764, 766]
+
+**3.2. Algorytm DMC (Dynamic Matrix Control)** [cite: 779]
+
+Jeden z pierwszych algorytmów MPC, wykorzystuje model odpowiedzi skokowej procesu. [cite: 779, 780]
+
+**3.2.1. Zastosowanie modelu odpowiedzi skokowej do predykcji** [cite: 780]
+
+Dynamika obiektu jest modelowana dyskretnymi odpowiedziami skokowymi $\{s_1, s_2, ..., s_D\}$, gdzie $s_i$ to wartość odpowiedzi na jednostkowy skok sygnału sterującego po $i$ okresach próbkowania, a $D$ to horyzont dynamiki (czas ustalania się odpowiedzi skokowej). [cite: 775, 776, 777]
+Prognozowana wartość wyjścia $\hat{y}(k+p|k)$ jest sumą składowej swobodnej $y^0(k+p|k)$ (zależnej od przeszłych sterowań) i składowej wymuszonej $\Delta y(k+p|k)$ (zależnej od przyszłych przyrostów sterowania $\Delta U(k)$):
+$\hat{y}(k+p|k) = y^0(k+p|k) + \Delta y(k+p|k)$ [cite: 774]
+Składowa wymuszona: $\Delta y(k+p|k) = \sum_{j=1}^{p} s_j \Delta u(k+p-j|k)$ (dla $p \le N_u$) [cite: 773]
+Składowa swobodna (uwzględniając zakłócenie $d(k) = y_{zmierz}(k) - y_{model}(k|k-1)$):
+$y^0(k+p|k) = y_{model,przeszle}(k+p|k) + d(k)$
+gdzie $y_{model,przeszle}$ to odpowiedź na przeszłe przyrosty sterowania. [cite: 773, 774]
+Wektorowo: $\hat{Y}(k) = Y^0(k) + M\Delta U(k)$ [cite: 783]
+$M$ to macierz dynamiczna zbudowana z współczynników odpowiedzi skokowej. [cite: 789]
+$Y^0(k)$ to wektor odpowiedzi swobodnej. [cite: 783]
+
+**3.2.2. Algorytm DMC w wersji analitycznej (bez ograniczeń)** [cite: 780]
+
+Minimalizacja wskaźnika $J(k) = (Y^{zad}(k) - \hat{Y}(k))^T \Psi (Y^{zad}(k) - \hat{Y}(k)) + \Delta U(k)^T \Lambda \Delta U(k)$ [cite: 783]
+prowadzi do analitycznego rozwiązania na $\Delta U(k)$:
+$\Delta U(k) = (M^T \Psi M + \Lambda)^{-1} M^T \Psi (Y^{zad}(k) - Y^0(k))$ [cite: 792]
+$\Delta U(k) = K (Y^{zad}(k) - Y^0(k))$ [cite: 792]
+gdzie $K = (M^T \Psi M + \Lambda)^{-1} M^T \Psi$ jest macierzą wzmocnień regulatora, obliczaną offline. [cite: 792, 793]
+Do sterowania używa się $\Delta u(k|k) = K_1 (Y^{zad}(k) - Y^0(k))$, gdzie $K_1$ to pierwszy wiersz macierzy $K$. [cite: 802]
+
+**3.2.3. Analityczna postać prawa regulacji DMC** [cite: 800]
+
+Prawo regulacji można przekształcić do postaci bezpośrednio zależnej od wyjścia i sterowania. [cite: 800, 801]
+Jeśli $Y^{zad}$ jest stała na horyzoncie predykcji ($Y^{zad}(k) = [y^{zad}(k), ..., y^{zad}(k)]^T$), to:
+$\Delta u(k|k) = k_e (y^{zad}(k) - y(k)) - \sum_{j=1}^{D-1} k_{u,j} \Delta u(k-j)$ (uproszczona forma, $y(k)$ zawiera efekt zakłócenia) [cite: 807]
+gdzie $k_e$ i $k_{u,j}$ są współczynnikami wynikającymi z macierzy $K$ i modelu. [cite: 807, 808]
+
+**3.2.4. Algorytm DMC w wersji analitycznej z rzutowaniem ograniczeń** [cite: 819]
+
+Jeśli nie można użyć wersji numerycznej z optymalizacją, a ograniczenia są istotne, stosuje się rzutowanie (przycinanie) obliczonego analitycznie $\Delta u(k|k)$ oraz $u(k) = u(k-1) + \Delta u(k|k)$ do dopuszczalnych zakresów. [cite: 819, 820]
+Procedura:
+1. Oblicz $\Delta u_{analityczne}(k|k)$.
+2. Rzutuj $\Delta u_{analityczne}(k|k)$ na $[\Delta u_{min}, \Delta u_{max}]$ dając $\Delta u_{rzut}(k|k)$. [cite: 821]
+3. Oblicz $u_{tymcz}(k) = u(k-1) + \Delta u_{rzut}(k|k)$.
+4. Rzutuj $u_{tymcz}(k)$ na $[u_{min}, u_{max}]$ dając $u(k|k)$. [cite: 821]
+5. Skoryguj rzeczywisty przyrost: $\Delta u(k|k) = u(k|k) - u(k-1)$. [cite: 821]
+
+**3.2.5. Algorytm DMC w wersji numerycznej (z ograniczeniami)**
+
+Uwzględnienie ograniczeń prowadzi do zadania programowania kwadratowego (QP) rozwiązywanego w każdej iteracji. [cite: 818, 820]
+Minimalizuj $J(k)$ z (3.2.2) przy ograniczeniach:
+* $\Delta U_{min} \le \Delta U(k) \le \Delta U_{max}$ [cite: 822]
+* $U_{min} \le U(k-1) \cdot \mathbf{1} + J_u \Delta U(k) \le U_{max}$ [cite: 823]
+    (gdzie $J_u$ to macierz sumująca przyrosty, $\mathbf{1}$ to wektor jedynek)
+* $Y_{min} \le Y^0(k) + M \Delta U(k) \le Y_{max}$ [cite: 823]
+Zadanie QP można zapisać w standardowej postaci: $\min_{\Delta U} \frac{1}{2} \Delta U^T H \Delta U + f^T \Delta U$ przy ograniczeniach liniowych. [cite: 823]
+Jeśli istnieje ryzyko sprzecznych ograniczeń (szczególnie na wyjście), stosuje się "miękkie ograniczenia". [cite: 825, 826]
+
+**3.3. Algorytm GPC (Generalized Predictive Control)** [cite: 834]
+
+Wykorzystuje model w postaci równania różnicowego (np. ARX, CARIMA). [cite: 838, 841] Może opisać szerszą klasę procesów niż model odpowiedzi skokowej, w tym procesy niestabilne i z całkowaniem. [cite: 837, 839]
+Model procesu (np. ARX): $A(z^{-1})y(k) = B(z^{-1})u(k-d) + C(z^{-1})e(k)$ (ogólna forma CARIMA, w tekście uproszczono do $A(z^{-1})y(k) = B(z^{-1})u(k)$ [cite: 841])
+$A(z^{-1}) = 1 + a_1 z^{-1} + ... + a_{nA} z^{-nA}$ [cite: 841]
+$B(z^{-1}) = b_0 + b_1 z^{-1} + ... + b_{nB} z^{-nB}$ (w tekście $B(z^{-1})$ zaczyna się od $b_1z^{-1}$ lub $b_0$ jest wchłaniane w opóźnienie) [cite: 841]
+
+**3.3.1. Zastosowanie równania różnicowego do predykcji** [cite: 844]
+
+Prognoza wyjścia: $\hat{y}(k+p|k) = y_{model}(k+p|k) + d(k+p|k)$. [cite: 846]
+Model zakłóceń często przyjmuje się jako stały (typu DMC): $d(k+p|k) = d(k) = y_{zmierz}(k) - y_{model}(k|k-1)$. [cite: 847, 848, 849]
+Predykcje $\hat{y}(k+p|k)$ oblicza się rekurencyjnie z równania modelu, podstawiając poprzednie predykcje dla wyjść i przyszłe sterowania. [cite: 850]
+$\hat{Y}(k) = M\Delta U(k) + Y^0(k)$ [cite: 851]
+Macierz dynamiczna $M$ ma taką samą strukturę jak w DMC, ale jej współczynniki $s_j$ (odpowiedź skokowa systemu opisana przez $A(z^{-1}), B(z^{-1})$) są obliczane inaczej, np. rekurencyjnie:
+$s_j = b_j - \sum_{i=1}^{\min(j, nA)} a_i s_{j-i}$ (jeśli $A(0)=1, B(0)=0$ i $b_j$ to wsp. odpowiedzi impulsowej) lub bezpośrednio z równania różnicowego. [cite: 851]
+Trajektoria swobodna $Y^0(k)$ jest obliczana na podstawie równania modelu przy założeniu $\Delta u(k+j|k)=0$ dla $j \ge 0$ oraz wykorzystaniu przeszłych pomiarów i zakłócenia $d(k)$. [cite: 852, 864, 866]
+
+**3.3.2. Algorytm GPC w wersji analitycznej (bez ograniczeń)** [cite: 871]
+
+Formuła na $\Delta U(k)$ jest identyczna jak w DMC:
+$\Delta U(k) = K (Y^{zad}(k) - Y^0(k))$ [cite: 873]
+gdzie $K = (M^T \Psi M + \Lambda)^{-1} M^T \Psi$. [cite: 873]
+Różnica tkwi w sposobie obliczania $Y^0(k)$ (z modelu ARX) i współczynników macierzy $M$. [cite: 843]
+
+**3.3.3. Analityczna postać prawa regulacji GPC**
+
+Podobnie jak w DMC, prawo regulacji można zapisać jako funkcję poprzednich wartości sygnałów wejściowych i wyjściowych oraz trajektorii wartości zadanej. [cite: 877]
+Jeśli $Y^{zad}$ jest stała na horyzoncie predykcji:
+$\Delta u(k|k) = k_{yzad} y^{zad}(k) - \sum k_{u,j} u(k-j) - \sum k_{y,j} y(k-j)$ (ogólna forma) [cite: 878, 879]
+Charakterystyczne dla GPC jest występowanie zależności od poprzednich wartości sygnału wyjściowego $y(k-j)$ w prawie regulacji, co wynika z natury modelu ARX. [cite: 883, 885]
+
+**3.3.4. Algorytm GPC z ograniczeniami** [cite: 886]
+
+Stosuje się analogiczne podejścia jak w DMC: [cite: 887]
+* Rzutowanie rozwiązania analitycznego na zbiór dopuszczalny (prostsze, mniej dokładne). [cite: 888]
+* Rozwiązanie zadania programowania kwadratowego (QP) w każdej iteracji (dokładniejsze, bardziej wymagające obliczeniowo). [cite: 889, 890]
+Formuła zadania QP jest taka sama jak dla DMC, różni się tylko sposób obliczania $Y^0(k)$ i macierzy $M$. [cite: 890]
+
+--- Koniec skryptu ---

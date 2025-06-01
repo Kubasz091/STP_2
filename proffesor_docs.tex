@@ -1,0 +1,911 @@
+% !TEX encoding = utf8
+\newlength\fwidth
+\newlength\fheight
+
+\chapter{Zasady ogólne}
+\section{Odpowiedni styl \LaTeX a}
+Do opracowania sprawozdań z~projektów i~ćwiczeń laboratoryjnych należy wykorzystać klasę \verb+mwrep+ z~pakietu klas \verb+mwcls+ oraz klasę \verb+polski+. Dzięki temu system \LaTeX automatycznie uwzględni podczas składu dokumentu normy stosowane w~Polsce, np. sposób numerowania i~składu tytułów oraz akapitów. W~przypadku dłuższych opracowań (książek, prac dyplomowych) należy wykorzystać klasę \verb+mwbk+. Użycie standardowych klas \verb+article+, \verb+raport+ czy \verb+book+ spowoduje zastosowanie anglosaskich norm składu dokumentów.
+
+\section{Zgodność z polskimi normami dotyczącymi przygotowywania publikacji}
+Niestety, klasa \verb+mwrep+ i~pakiet \verb+polski+ nie zapobiegną celowym błędom. Na przykład, cudzysłów oznaczamy znakami  \verb+,,+ (dwa przecinki) oraz  \verb+''+ (dwa apostrofy), co zostaje w~dokumencie wynikowym złożone jako ,, oraz ''. Sekwencja znaków  \verb+``+ (dwa znaki typu grawis) oraz  \verb+''+ zostaje złożona jako `` oraz '', co odpowiada normom anglosaskim.
+
+Należy unikać samotnych pojedynczych znaków (i, a, o, w) na końcu wiersza. Aby temu zapobiec, stosujemy znak tyldy, który zabrania przejścia do nowej linii. Zamiast \verb+w algorytmie+, piszemy \verb+w~algorytmie+.
+
+\section{Kodowanie znaków}
+Rekomendowane jest użycie kodowania \texttt{UTF-8}. Wymaga to umieszczenie w~preambule (głównego) dokumentu sekwencji \verb|\usepackage[utf8]{inputenc}|, natomiast na początku każdego pliku \verb|*.tex| należy umieścić sekwencję \verb|% !TEX encoding = utf8|. Kodowanie \texttt{cp1250} (zwane również \texttt{windows-1250}) nie jest polecane ponieważ system Overleaf obsługuje wyłącznie system \texttt{UTF-8}.
+
+\section{Styl językowy sprawozdania}
+Każde zdanie musi zawierać podmiot i~orzeczenie. Sprawozdanie należy pisać poprawną polszczyzną, bez stosowania żargonu i~anglicyzmów. Najlepiej stosować formę bezosobową, tzn. sformułowania typu: \emph{zaimplementowano algorytm\ldots, zwiększono/zmniejszono parametr\ldots, na rys. \ldots przedstawiono\ldots, tabela \ldots przedstawia \ldots} itp. Nie piszemy w~pierwszej osobie, zarówno liczbie pojedynczej, jak i~mnogiej.
+
+\section{Omówienie wyników}
+W~sprawozdaniu należy omówić wszystkie rysunki i~tabele. Błędem jest zamieszczanie kilku lub nawet kilkunastu rysunków bez jakiegokolwiek komentarza. W~niektórych oczywistych przypadkach można omówić kilka rysunków lub tabeli grupowo, np. pisząc: \emph{Na rysunkach 1-5 przedstawiono wyniki symulacji dla wybranych wartości parametrów}. Oczywiście, podpisy lub legendy rysunków muszą precyzyjnie określać wartości parametrów.
+
+Wszelkie zadania zawierające słowo ,,dobierz'' wymagają omówienia sposobu doboru wartości wybranego parametru. W~szczególności, należy omówić (i~zilustrować odpowiednim rysunkiem) wpływ wartości parametru na wyniki symulacji lub eksperymentów. Zdanie: \emph{Dobrano wartość parametru} nie jest prawidłowym sposobem dokumentacji wyników.
+
+Omówienie rysunków i~tabeli nie może być lakoniczne. Należy precyzyjnie opisać jaki rezultat osiągnięto, do czego prowadzi zmiana parametrów. Czasami można podać najważniejszy rezultat liczbowy, np. pisząc: \emph{zmiana parametru prowadzi do polepszenia jakości o~50\%}. Zwykle wartości liczbowe podajemy w~tabelach, natomiast w~opisie staramy się podsumować jakościowo otrzymane rezultaty, np. pisząc: \emph{najlepsze wyniki osiągnięto dla parametru $a$ równego 10}. Opis nie może być przesadnie szczegółowy. Nie należy oczywiście w~tekście podawać wszystkich wyników zestawionych w~tabeli. Jeżeli na rysunku pokazano kilka wykresów dla różnych wartości pewnego parametru, nie należy słownie opisywać kształtu każdej krzywej i~ich wzajemnych relacji. W~takiej sytuacji należy powiedzieć która wartość parametru okazała się najlepsza.
+
+\section{Odręczne wzory i~rysunki}
+W~sprawozdaniu nie można zamieszczać zdjęć odręcznie napisanych wzorów i~rysunków, a~także zdjęć fragmentów książek i~innych materiałów, które zostały przygotowane przez innych autorów. Sprawozdanie zawierające takie elementy składowe wygląda wyjątkowo nieprofesjonalnie.
+
+\section{Rysunki z~innych publikacji}
+Jeżeli licencja na to pozwala, w~opracowywanym sprawozdaniu lub pracy dyplomowej można zamieścić rysunki z~innej publikacji. Należy wówczas obowiązkowo podać źródło, z~którego pochodzi ten rysunek.
+
+\section{Wzory matematyczne}
+Równania matematyczne muszą być przygotowane przy wykorzystaniu systemu \LaTeX. Wszystkie wzory muszą być ponumerowane.
+
+\section{Znaki przestankowe}
+Przed znakami przestankowymi nie ma spacji, natomiast występuje ona po znaku przestankowym. Przykłady błędów są następujące: \emph{Na rys.1 podano wyniki symulacji. W~tab. 2podano wskaźniki jakości. W~trakcie symulacji zmieniano parametry $a$,$b$,$c$ oraz $d$ .}
+
+\section{Odwołania do wzorów, rysunków i~tabel}
+Wszystkie wzory matematyczne, rysunki oraz tabele powinny być ponumerowane oraz być odpowiednio podpisane. W~tekście sprawozdania powołujemy się na wzory, rysunki i~tabele podając odpowiednie numery, np. \emph{Wyniki przedstawiono na rys. 1 oraz w~tab. 3}. Każdy ze~wzorów, rysunków i~tabel musi mieć unikalny identyfikator, który wstawiany jest poleceniem \verb+\label{identyfikator}+. Odwołanie do odpowiedniego rysunku lub tabeli, czyli wstawienie do dokumentu odpowiedniego numeru, umożliwia polecenie \verb+\ref{identyfikator}+.
+
+Nie stosujemy określeń typu: \emph{na rysunku poniżej/powyżej/3 strony później}. System \LaTeX \ najczęściej sam rozmieszcza rysunki oraz tabele, a~więc dopisanie fragmentu tekstu zazwyczaj powoduje, że układ rysunków i~tabel zmienia się.
+
+\section{Pozycjonowanie rysunków i~tabel}
+Zgodnie z~filozofia systemu \LaTeX, wszystkie rysunki i~tabele powinniśmy umieszczać jako ,,pływające", a~więc w otoczeniu \verb+figure+ oraz \verb+table+. Możliwe pozycje są następujące: \verb+[t]+ -- na górze strony, \verb+[b]+ -- na dole strony, \verb+[p]+ -- na stronie rysunków/tabel (możliwe są również kombinacje tych opcji). Można również zastosować opcję \verb+[h]+ (jeżeli się da, to w~tym miejscu). Wymienione opcje działają dobrze, pod warunkiem jednak, że w~dokumencie znajduje się ,,odpowiednia'' ilość tekstu, wystarczająca do ładnego ułożenia razem z~rysunkami i~tabelami. Niestety, jeżeli rysunków i~tabel jest znacznie więcej niż tekstu, mogą się one znajdować w~złożonym dokumencie daleko od miejsca, w~którym są omawiane. Należy wówczas zastosować opcję \verb+[H]+ z~pakietu \verb+float+ (dokładnie w~tym miejscu). Wadą takiego rozwiązania jest prawdopodobieństwo wystąpienia pustych fragmentów stron, ale rysunki i~tabele są dokładnie w~tym miejscu, w~którym wskażemy. Aby uniknąć umieszczenia rysunków w~tekście kolejnego rozdziału albo na końcu dokumentu należy zastosować polecenie \verb+\FloatBarrier+ z~pakietu \verb+placeins+.
+
+\section{Wyliczenia}
+Środowisko \verb+itemize+ służy do składania krótkich wyliczeń. Każdy wiersz zaczyna się małą literą, kończy przecinkiem, ostatni wiersz wyliczenia kończy się kropką, na przykład:
+\begin{itemize}
+\item pierwsza obserwacja,
+\item druga obserwacja,
+\item trzecia obserwacja.
+\end{itemize}
+Środowisko \verb+enumerate+ służy do składania dłuższych wyliczeń. Każdy wiersz zaczyna się wielką literą i~kończy kropką (jedno lub kilka zdań), na przykład:
+\begin{enumerate}
+\item Jedno lub kilka zdań, jedno lub kilka zdań, jedno lub kilka zdań, jedno lub kilka zdań, jedno lub kilka zdań, jedno lub kilka zdań.
+\item Jedno lub kilka zdań, jedno lub kilka zdań, jedno lub kilka zdań, jedno lub kilka zdań, jedno lub kilka zdań, jedno lub kilka zdań.
+\item Jedno lub kilka zdań, jedno lub kilka zdań, jedno lub kilka zdań, jedno lub kilka zdań, jedno lub kilka zdań, jedno lub kilka zdań.
+\end{enumerate}
+
+\section{Kody programów}
+W~sprawozdaniu można umieścić kod programu, służącego do rozwiązania zadania lub kluczowe fragmenty programu. W~obu przypadkach program musi być dobrze opisany. Opis kodu może być zawarty w~komentarzach, będących częścią listingu, lub zostać dodany jako osobny fragment tekstu.
+
+\section{,,Poprawianie'' \LaTeX a}
+Jak już wspomniano we wstępnie, system składu \LaTeX \ w~taki sposób układa poszczególne partie tekstu oraz elementy dodatkowe (rysunki, tabele itp.), aby cały dokument wyglądał możliwie dobrze. \LaTeX \ automatycznie dobiera odstępy, np. odstępy pionowe między tekstem a~wzorami matematycznymi. Niekiedy \LaTeX \ generuje 2-3 linie tekstu na ostatniej stronie albo wstawia bardzo duże odstępy między akapitami i~wzorami. Należy wówczas spróbować minimalnie zredukować ilość tekstu albo wymiary rysunków, natomiast odradzane jest ,,ręczne poprawianie'' \LaTeX a, np. redukując odstępy pionowe między tekstem, wzorami i~rysunkami.
+
+% !TEX encoding = utf8
+\chapter{Wzory matematyczne}
+\section{Wstawianie wzorów w~pliku źródłowym}
+Do wstawienia wzorów matematycznych używamy otoczenia \verb|equation| lub \verb|align|. W~kodzie źródłowym umieszczamy polecenia:
+\begin{lstlisting}[style=customlatex,frame=single]
+\begin{equation}
+	y(x)=a_0+a_1x+\ldots +a_nx^n
+	\label{wzor_wielomianu}
+\end{equation}
+\end{lstlisting}
+co w~złożonym dokumencie daje następujący wynik
+\begin{equation}
+y(x)=a_0+a_1x+\ldots +a_nx^n
+\label{wzor_wielomianu}
+\end{equation}
+Poleceniem \verb|\label{wzor_wielomianu}| nadajemy wzorowi unikalny identyfikator. Aby odwołać się w~tekście do wzoru, wystarczy użyć polecenia \verb|(\ref{wzor_wielomianu})|. W~tekście źródłowym piszemy: \verb|równanie (\ref{wzor_wielomianu})|, co w~gotowym dokumencie zostaje złożone jako \emph{równanie (\ref{wzor_wielomianu})}.
+
+Krótkie wzory, które nie są numerowane, oraz symbole matematyczne umieszczamy w~tekście. Na przykład, sekwencja \verb|$y(x)=x^3$| zostaje złożona jako $y(x)=x^3$.
+
+\section{Separator dziesiętny}
+Stosowanie języka polskiego wymusza na autorze sprawozdania przestrzeganie podstawowych zasad. Jedną z często ignorowanych reguł jest stosowanie przecinka zamiast kropki do oddzielenia części całkowitej liczby rzeczywistej od jej części ułamkowej. Ma to duży wpływ na estetykę sprawozdania. Najłatwiej zadbać o~poprawne stosowanie separatorów dziesiętnych wykorzystując pakiet \verb+siunitx+ oraz polecenie \verb+\num+. Aby uniknąć dodatkowego odstępu, stosujemy zapis \verb+\num{1,2345}+ lub \verb+\num{1.2345}+, co prowadzi do \num{1,2345}, a~nie \verb+$1,2345$+, co prowadzi do $1,2345$. Stosujemy zapis \num{1.2345e10}, a~nie anglosaski zapis $1{,}2345\times 10^{10}$. Powyższy zapis można stosować również w trybie matematycznym, np. \verb+$\num{1.2345e10}$+ prowadzi do rezultatu $\num{1.2345e10}$. Przykłady złego i~dobrego zastosowania separatora dziesiętnego przedstawiono w~tab. \ref{t_przecinki_kropki}. Jeżeli nie korzystamy z~pakietu \verb+siunitx+ oraz polecenia \verb+\num+, należy zastosować zapis \verb+1{,}2345+, co likwiduje dodatkowy odstęp po przecinku.
+
+\begin{table}[H]
+	\caption{Przykłady złego i~dobrego zastosowania separatora dziesiętnego}
+	\label{t_przecinki_kropki}
+\centering
+\begin{tabular}{llc}
+	\multicolumn{1}{c}{Zapis w \LaTeX u} & \multicolumn{1}{c}{Efekt} & \multicolumn{1}{c}{Czy poprawne?} \\ \hline
+	\verb+$12.345$+ & $12.345$ & nie \\
+	\verb+$12,345$+ & $12,345$ & nie \\
+	\verb+$\num{12.345}$+ & $\num{12.345}$ & \textbf{tak} \\
+	\verb+$\num{12,345}$+ & $\num{12,345}$ & \textbf{tak} \\
+\end{tabular}
+\end{table}
+
+Ciekawe efekty pojawiają się przy wymienianiu różnych wartości parametrów w jednym zdaniu, na przykład: \emph{Do testowania zastosowane zostały okresy próbkowania $0,01$, $0,1$, $1$, $10$ oraz $100$ sekund.}
+
+\section{Jednostki}
+Przed symbolem jednostki powinna znajdować się spacja. Przykłady złego i~dobrego zastosowania jednostek podano w~tab. \ref{t_jednostki}.
+
+\begin{table}[H]
+	\caption{Przykłady złego i~dobrego zapisu jednostek}
+	\label{t_jednostki}
+\centering
+\begin{tabular}{llc}
+	\multicolumn{1}{c}{Zapis w \LaTeX u} & \multicolumn{1}{c}{Efekt} & \multicolumn{1}{c}{Czy poprawne?} \\ \hline
+	\verb+$\num{12.345}\mu s$+ & $\num{12.345}\mu s$ & nie \\
+	\verb+$\SI{12.345}{\micro s}$+ & $\SI{12.345}{\micro s}$ & \textbf{tak} \\
+	\verb+$\num{12.345}\ \mu s$+ & $\num{12.345}\ \mu s$ & nie \\
+\end{tabular}
+\end{table}
+
+\section{Stałe i~zmienne, indeksowanie}
+Skalarne stałe i~zmienne zapisujemy w~trybie matematycznym, np. $x$, $y$, $z$. Stosujemy indeksy dolne, np. $x_i$ (\verb|x_i| w~pliku źródłowym), górne, np. $x^j$ (\verb|x^j|), lub oba, np. $x_i^j$ (\verb|x_i^j|). Można również zastosować indeksy w~nawiasach, np. $y(k)$. Jeżeli indeks zapisany jest czcionką pochyłą, spodziewamy się, że przyjmuje on wartość liczbową (liczby naturalne), np. $x_i$ dla $i=1,\ldots,10$. Jeżeli natomiast zastosujemy oznaczenie $x_{\text{i}}$ (\verb|x_{\text{i}}| w~pliku źródłowym), to wówczas $\text{i}$ nie przyjmuje żadnej wartości, jest on integralną częścią zmiennej lub stałej. Dlatego oznaczając horyzont sterowania stosujemy symbol $N_{\text{u}}$, a~nie $N_u$, co by sugerowało, że indeks $u$ przyjmuje pewne wartości z zakresu liczb naturalnych. Analogicznie, stała czasowa całkowania oznaczana jest jako $T_{\text{i}}$, a~nie jako $T_i$, stała czasowa różniczkowania to $T_{\text{d}}$, a nie $T_d$. Sygnał wartości zadanej oznaczamy przez $y^{\text{zad}}$, a~nie przez $y^{zad}$.
+
+Nie należy stosować czcionki pochyłej również do tekstów, które uzupełniają wyrażenia matematyczne, np. zamiast błędnej postaci
+\begin{equation}
+y(x)=
+\begin{cases}
+x^2 & gdy \ x\le 0\\
+x^3 & gdy \ x>0
+\end{cases}
+\end{equation}
+powinno być
+\begin{equation}
+y(x)=
+\begin{cases}
+x^2 & \text{gdy } x\le 0\\
+x^3 & \text{gdy } x>0
+\end{cases}
+\end{equation}
+Odstępy w trybie matematycznym wymuszamy za pomocą instrukcji \verb+\+, \verb+\quad+, \verb+\qquad+ itd.
+
+\section{Numerowanie wzorów}
+Numerujemy wszystkie wzory, które są wycentrowane. Oczywiście nie numerujemy symboli i~krótkich wzorów, które podane są w~tekście.
+
+\section{Wektory}
+Do oznaczenia wektorów najczęściej stosujemy symbole pogrubione, np. $\boldsymbol{x}$, $\triangle\boldsymbol{u}(k)$. Pamiętamy, że w matematyce wektory zawsze są pionowe. Wektory, których elementami są skalary, zapisujemy więc jako
+\begin{equation}
+\triangle\boldsymbol{u}(k)=\left[\triangle u(k|k) \ \ldots \ \triangle u(k+N_{\text{u}}-1|k) \right]^{\text{T}}
+\end{equation}
+lub w~postaci
+\begin{equation}
+\triangle\boldsymbol{u}(k)=\left[
+\begin{array}{c}
+\triangle u(k|k)\\
+\vdots\\
+\triangle u(k+N_{\text{u}}-1|k)
+\end{array}
+\right]
+\label{w_dUk}
+\end{equation}
+Jeżeli używamy wektorów, których elementami składowymi są inne wektory, najwygodniej zapisać je pionowo. Na przykład, elementami wektora (\ref{w_dUk}) są wektory składowe
+\begin{equation}
+\triangle u(k+p|k)=\left[
+\begin{array}{c}
+\triangle u_1(k+p|k)\\
+\vdots\\
+\triangle u_{n_{\text{u}}}(k+p|k)
+\end{array}
+\right]
+\label{w_dukp}
+\end{equation}
+gdzie $p=1,\ldots,N_{\text{u}}$. A więc każdy z~wektorów (\ref{w_dukp}) ma długość $n_{\text{u}}$, natomiast wektor (\ref{w_dUk}) ma długość $n_{\text{u}}N_{\text{u}}$.
+
+\section{Macierze}
+Do oznaczenia macierzy najczęściej stosujemy symbole pogrubione, np. macierz dynamiczna w~algorytmie DMC dla procesu o~jednym wejściu i~jednym wyjściu ma wymiar $N \times N_{\text{u}}$ i strukturę
+\begin{equation}
+\boldsymbol{G}=\left[
+\begin{array}
+{cccc}
+s_{1} & 0 & \ldots & 0\\
+s_{2} & s_{1} & \ldots & 0\\
+\vdots & \vdots & \ddots & \vdots\\
+s_{N} & s_{N-1} & \ldots &  s_{N-N_{\text{u}}+1}
+\end{array}
+\right]
+\end{equation}
+W~przypadku procesu o~$n_{\text{u}}$ wejściach i~$n_{\text{y}}$ wyjściach ma ona  wymiar $N\times N_{\text{u}}$ i postać
+\begin{equation}
+\boldsymbol{G}=\left[
+\begin{array}
+{cccc}
+\boldsymbol{S}_{1} & \boldsymbol{0}_{n_{\text{y}}\times n_{\text{u}}} & \ldots & \boldsymbol{0}_{n_{\text{y}}\times n_{\text{u}}}\\
+\boldsymbol{S}_{2} & \boldsymbol{S}_{1} & \ldots & \boldsymbol{0}_{n_{\text{y}}\times n_{\text{u}}}\\
+\vdots & \vdots & \ddots & \vdots\\
+\boldsymbol{S}_{N} & \boldsymbol{S}_{N-1} & \ldots &  \boldsymbol{S}_{N-N_{\text{u}}+1}%
+\end{array}
+\right]
+\label{w_G}
+\end{equation}
+gdzie każda z~macierzy składowych ma wymiar $n_{\text{y}}\times n_{\text{u}}$
+\begin{equation}
+\boldsymbol{S}_p=\left[
+\begin{array}
+{ccc}
+s_p^{1,1} & \ldots & s_p^{1,n_{\text{u}}}\\
+\vdots & \ddots & \vdots\\
+s_p^{n_{\text{y}},1} & \ldots & s_p^{n_{\text{y}},n_{\text{u}}}
+\end{array}
+\right]
+\end{equation}
+gdzie $p=1,\ldots,N$. A~więc macierz (\ref{w_G}) ma wymiar $n_{\text{y}}N\times n_{\text{u}}N_{\text{u}}$.
+
+\section{Większe wyrażenia matematyczne}
+W~przypadku długich wzorów nie należy korzystać z~otoczenia \verb+equation+, ponieważ wzór taki zwykle nie~mieści się na stronie o przyjętej szerokości, np.
+\begin{equation}
+y(k)=b_1u(k-1)+b_2u(k-2)+b_3u(k-3)+b_4u(k-4)+b_5u(k-5)-a_1y(k-1)-a_2y(k-2)-a_3y(k-3)-a_4y(k-4)-a_5y(k-5)
+\end{equation}
+Należy zastosować otoczenie \verb+align+, co prowadzi do wzoru
+\begin{align}
+y(k)&=b_1u(k-1)+b_2u(k-2)+b_3u(k-3)+b_4u(k-4)+b_5u(k-5)\nonumber\\
+&\quad -a_1y(k-1)-a_2y(k-2)-a_3y(k-3)-a_4y(k-4)-a_5y(k-5)\label{w_yk}
+\end{align}
+Nie stosujemy otoczenia \verb+split+ z~powodu błędnego centrowania. Numer wzoru złożonego z~wielu wierszy umieszczamy tylko w~ostatnim wierszu.
+
+
+\documentclass[a4paper,titlepage,11pt,floatssmall]{mwrep}
+\usepackage[left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm]{geometry}
+\usepackage[OT1]{fontenc}
+\usepackage{polski}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{url}
+\usepackage{tikz}
+\usetikzlibrary{arrows,calc,decorations.markings,math,arrows.meta}
+\usepackage{rotating}
+\usepackage[percent]{overpic}
+\usepackage[utf8]{inputenc}
+\usepackage{xcolor}
+\usepackage{colortbl}
+\usepackage{listings}
+\usepackage{matlab-prettifier}
+\usepackage{enumitem,amssymb}
+\definecolor{szary}{rgb}{0.95,0.95,0.95}
+\usepackage{siunitx}
+\sisetup{detect-weight,exponent-product=\cdot,output-decimal-marker={,},per-mode=symbol,range-phrase={-},range-units=single}
+
+%konfiguracje pakietu listings
+\lstset{
+  literate={ą}{{\k a}}1
+           {Ą}{{\k A}}1
+           {ż}{{\. z}}1
+           {Ż}{{\. Z}}1
+           {ź}{{\' z}}1
+           {Ź}{{\' Z}}1
+           {ć}{{\' c}}1
+           {Ć}{{\' C}}1
+           {ę}{{\k e}}1
+           {Ę}{{\k E}}1
+           {ó}{{\' o}}1
+           {Ó}{{\' O}}1
+           {ń}{{\' n}}1
+           {Ń}{{\' N}}1
+           {ś}{{\' s}}1
+           {Ś}{{\' S}}1
+           {ł}{{\l}}1
+           {Ł}{{\L}}1
+}
+\lstset{
+	backgroundcolor=\color{szary},
+	frame=single,
+	breaklines=true,
+}
+\lstdefinestyle{customlatex}{
+	basicstyle=\footnotesize\ttfamily,
+	%basicstyle=\small\ttfamily,
+}
+\lstdefinestyle{customc}{
+	breaklines=true,
+	frame=tb,
+	language=C,
+	xleftmargin=0pt,
+	showstringspaces=false,
+	basicstyle=\small\ttfamily,
+	keywordstyle=\bfseries\color{green!40!black},
+	commentstyle=\itshape\color{purple!40!black},
+	identifierstyle=\color{blue},
+	stringstyle=\color{orange},
+}
+\lstdefinestyle{custommatlab}{
+	captionpos=t,
+	breaklines=true,
+	frame=tb,
+	xleftmargin=0pt,
+	language=matlab,
+	showstringspaces=false,
+	basicstyle=\small\ttfamily,
+	%basicstyle=\scriptsize\ttfamily,
+	keywordstyle=\bfseries\color{green!40!black},
+	commentstyle=\itshape\color{purple!40!black},
+	identifierstyle=\color{blue},
+	stringstyle=\color{orange},
+}
+\lstdefinestyle{custompython}{
+	captionpos=t,
+	breaklines=true,
+	frame=tb,
+	xleftmargin=0pt,
+	language=python,
+	showstringspaces=false,
+	basicstyle=\small\ttfamily,
+	keywordstyle=\bfseries\color{green!40!black},
+	commentstyle=\itshape\color{purple!40!black},
+	identifierstyle=\color{blue},
+	stringstyle=\color{orange},
+}
+
+%wymiar tekstu (bez żywej paginy)
+\textwidth 160mm \textheight 247mm
+
+\def\figurename{Rys.}
+\def\tablename{Tab.}
+
+%konfiguracja liczby pływających elementów
+\setcounter{topnumber}{0}%2
+\setcounter{bottomnumber}{3}%1
+\setcounter{totalnumber}{5}%3
+\renewcommand{\textfraction}{0.01}%0.2
+\renewcommand{\topfraction}{0.95}%0.7
+\renewcommand{\bottomfraction}{0.95}%0.3
+\renewcommand{\floatpagefraction}{0.35}%0.5
+
+\begin{document}
+\frenchspacing
+\pagestyle{uheadings}
+
+%strona tytułowa
+\title{\bf Sprawozdanie z projektu nr 1, zadanie nr 1}
+\author{Imię i Nazwisko}
+\date{2024}
+
+\makeatletter
+\renewcommand{\maketitle}{\begin{titlepage}
+\begin{center}{\LARGE {\bf
+Wydział Elektroniki i Technik Informacyjnych}}\\
+\vspace{0.4cm}
+{\LARGE {\bf Politechnika Warszawska}}\\
+\vspace{0.3cm}
+\end{center}
+\vspace{5cm}
+\begin{center}
+{\bf \LARGE Przedmiot \vskip 0.1cm}
+\end{center}
+\vspace{1cm}
+\begin{center}
+{\bf \LARGE \@title \vskip 0.1cm}
+\end{center}
+\vspace{2cm}
+\begin{center}
+{\bf \Large \@author \par}
+\end{center}
+\vspace*{\stretch{6}}
+\begin{center}
+\bf{\large{Warszawa, \@date\vskip 0.1cm}}
+\end{center}
+\end{titlepage}
+}
+\makeatother
+
+\maketitle
+
+\tableofcontents
+\input{wstep}
+\input{zasady_ogolne}
+\input{wzory}
+\input{tabele}
+\input{rysunki}
+\input{listingi}
+\input{literatura}
+\end{document}
+
+% !TEX encoding = utf8
+\chapter{Tabele}
+\section{Wstawianie tabeli w~pliku źródłowym}
+Do wstawienia tabeli używamy otoczenia \verb|table|. W~kodzie źródłowym umieszczamy polecenia:
+\begin{lstlisting}[style=customlatex,frame=single]
+\begin{table}[H]
+	\caption{Powierzchnia kontynentów}
+	\label{tab_kontynenty}
+	\centering
+	\begin{small}
+		\begin{tabular}{|c|c|}
+			\hline
+			Kontynent & Powierzchnia (mln km$^2$)\\ \hline
+			Afryka & 30,4\\
+			Ameryka Południowa & 17,8\\
+			Ameryka Północna & 24,2\\
+			Antarktyda & 13,2\\
+			Australia & 7,7\\
+			Azja & 44,6\\
+			Europa & 10,2\\
+			\hline
+		\end{tabular}
+	\end{small}
+\end{table}
+\end{lstlisting}
+co w~dokumencie skutkuje wstawieniem tabeli \ref{tab_kontynenty}. Analogicznie jak w~przypadku wzorów matematycznych, poleceniem \verb|\label{tab_kontynenty}| nadajemy tabeli unikalny identyfikator. Aby odwołać się w~tekście do tabeli, wystarczy użyć polecenia \verb|\ref{tab_kontynenty}|. W~tekście źródłowym piszemy: \verb|tab. \ref{tab_kontynenty}|, co w~gotowym dokumencie zostaje złożone jako \emph{tab. \ref{tab_kontynenty}}.
+
+\begin{table}[H]
+	\caption{Powierzchnia kontynentów}
+	\label{tab_kontynenty}
+	\centering
+	\begin{small}
+		\begin{tabular}{|c|c|}
+			\hline
+			Kontynent & Powierzchnia (mln km$^2$)\\ \hline
+			Afryka & 30,4\\
+			Ameryka Południowa & 17,8\\
+			Ameryka Północna & 24,2\\
+			Antarktyda & 13,2\\
+			Australia & 7,7\\
+			Azja & 44,6\\
+			Europa & 10,2\\
+			\hline
+		\end{tabular}
+	\end{small}
+\end{table}
+
+\section{Przykłady tabeli}
+W~praktyce bardzo często należy wyrównać liczby względem cyfr znaczących w~poszczególnych kolumnach (czyli przecinek dziesiętny powinien być we wszystkich wierszach tabeli umieszczony w~tym samym miejscu w~pionie). Do wyrównania liczb należy wykorzystać pakiet \verb+siunitx+ (pakiety \verb+rccol+ oraz \verb+dcolumn+ mają mniejsze możliwości). Wszystkie przykłady podane w~niniejszym rozdziale wykorzystują pakiet \verb+siunitx+. Zwróćmy uwagę, że tytuły znajdujące się w~pierwszym wierszu wszystkich tabel są wyśrodkowane (w~obrębie kolejnych komórek).
+
+Jeżeli standardowa szerokość kolumn jest za mała, należy w~dowolnym wierszu wstawić z~obu stron zawartości komórki polecenia \verb+\hspace{odległość}+, które zapewniają odpowiednią szerokość. Modyfikację taką zastosowano w~drugiej kolumnie tab.~\ref{t_wyrownanie_do_znaku_przecinek3}.
+
+Jeżeli tabela jest szersza niż szerokość strony, należy zastosować otoczenie \verb+sidewaystable+ z~pakietu \verb+rotating+, co wykorzystano w~tab.~\ref{t_wyrownanie_do_znaku_przecinek4}.
+
+W~zamieszczonych tabelkach wykorzystano polecenie \verb+\rule+ do wstawienia linii o~zerowej szerokości do wierszy tabelek, które są zbyt wąskie.
+
+Polecenie \verb|\renewcommand{\arraystretch}{liczba}|, gdzie \verb|liczba| jest większa od 1, wymusi proporcjonalne zwiększenie wysokości wszystkich wierszy tabeli.
+
+\begin{table}
+	[b] \caption{Porównanie liczby parametrów~(LP) i~dokładności~(SSE) modeli}
+	\label{t_wyrownanie_do_znaku_przecinek1}
+	\centering
+	\sisetup{table-format = 2.4}
+	\begin{small}
+		\begin{tabular}{|l|S[table-format=2]|S|S|S|}
+			\hline
+			\multicolumn{1}{|c|}{Model\rule{0pt}{3.5mm}} & LP & $\mathrm{SSE_{ucz}}$ & $\mathrm{SSE_{wer}}$ & $\mathrm{SSE_{test}}$ \\ \hline
+			Liniowy \rule{0pt}{3.5mm}                    &  4 & 90.1815              & 70.7787              & \textemdash         \\
+			Neuronowy, $K=1$                             &  7 & 10.1649              & 10.3895              & \textemdash         \\
+			Neuronowy, $K=2$                             & 13 & 0.3282               & 0.3257               & \textemdash         \\
+			Neuronowy, $K=3$                             & 19 & 0.2014               & 0.1827               & 0.1468                \\
+			Neuronowy, $K=4$                             & 25 & 0.1987               & 0.1906               & \textemdash         \\
+			Neuronowy, $K=5$                             & 31 & 0.1364               & 0.1971               & \textemdash         \\
+			Neuronowy, $K=6$                             & 37 & 0.1340               & 0.2044               & \textemdash         \\ \hline
+		\end{tabular}
+	\end{small}
+\end{table}
+
+\begin{table}
+	[b] \caption{Porównanie liczby parametrów~(LP) i~dokładności~(SSE) modeli}
+	\label{t_wyrownanie_do_znaku_przecinek2}
+	\centering
+	\sisetup{table-format = 1.4e-1}
+	\begin{small}
+		\begin{tabular}{|l|S[table-format=2]|S|S|S|}
+			\hline
+			\multicolumn{1}{|c|}{Model\rule{0pt}{3.5mm}} & LP & $\mathrm{SSE_{ucz}}$ & $\mathrm{SSE_{wer}}$ & $\mathrm{SSE_{test}}$ \\ \hline
+			Liniowy\rule{0pt}{3.5mm} &  4 & 9.1815e1  & 7.7787e1  & \textemdash\\
+			Neuronowy, $K=1$         &  7 & 1.1649e1  & 1.3895e1  & \textemdash\\
+			Neuronowy, $K=2$         & 13 & 3.2821e-1 & 3.2568e-1 & \textemdash\\
+			Neuronowy, $K=3$         & 19 & 2.0137e-1 & 1.8273e-1 & 1.4682e-1\\
+			Neuronowy, $K=4$         & 25 & 1.9868e-1 & 1.9063e-1 & \textemdash\\
+			Neuronowy, $K=5$         & 31 & 1.3642e-1 & 1.9712e-1 & \textemdash\\
+			Neuronowy, $K=6$         & 37 & 1.3404e-1 & 2.0440e-1 & \textemdash\\ \hline
+		\end{tabular}
+	\end{small}
+\end{table}
+
+\begin{table}
+	[b] \caption{Porównanie złożoności obliczeniowej}
+	\label{t_wyrownanie_do_znaku_przecinek3}
+	\centering
+	\sisetup{table-auto-round=true}
+	\begin{small}
+		\begin{tabular}{|l|S[table-format=2]|S[table-format=1.2]|S[table-format=1.2]|S[table-format=2.2]|S[table-format=2.2]|S[table-format=2.2]|S[table-format=3.2]|}
+			\hline
+			\multicolumn{1}{|c|}{Algorytm\rule{0pt}{3.25mm}} & \hspace{0.5cm} $N$ \hspace{0.5cm} & ${N_{\mathrm{u}}=1}$ & ${N_{\mathrm{u}}=2}$ & ${N_{\mathrm{u}}=3}$ & ${N_{\mathrm{u}}=4}$ & ${N_{\mathrm{u}}=5}$ & ${N_{\mathrm{u}}=10}$ \\ \hline
+			NPL\rule{0pt}{3.5mm} & 5 & 0,3954 & 0,5326 & 0,8482 & 1,2868 & 1,9179 & \textemdash \\
+			NO & 5 & 2,6129 & 5,0372 & 8,0029 & 12,6476 & 18,3668 & \textemdash \\
+			NO$_{\mathrm{apr}}$\rule[-1.5mm]{0pt}{3.5mm} & \phantom{0}5 & 2,4654 & 4,3206 & 7,9801 & 15,2479 & 26,5298 & \textemdash \\ \hline
+			NPL\rule{0pt}{3.5mm} & 10 & 0,6274 & 0, 7874 & 1,1366 & 1,6201 & 2,3101 & 9,1346 \\
+			NO & 10 & 5,2040 & 9,0378 & 13,5571 & 19,1675 & 26,2604 & 76,5018 \\
+			NO$_{\mathrm{apr}}$\rule[-1.5mm]{0pt}{3.5mm} & 10 & 4,3828 & 7,5813 & 12,6279 & 20,0911 & 31, 7747 & 154,1544 \\ \hline
+		\end{tabular}
+	\end{small}
+\end{table}
+
+\begin{sidewaystable}
+	[b] \caption{Porównanie złożoności obliczeniowej}
+	\label{t_wyrownanie_do_znaku_przecinek4}
+	\centering
+	\centering
+	\sisetup{table-auto-round=true}
+	\begin{small}
+		\begin{tabular}{|l|S[table-format=2]|S[table-format=1.2]|S[table-format=1.2]|S[table-format=2.2]|S[table-format=2.2]|S[table-format=2.2]|S[table-format=3.2]|S[table-format=3.2]|S[table-format=3.2]|S[table-format=3.2]|}
+			\hline
+			\multicolumn{1}{|c|}{Algorytm\rule{0pt}{3.25mm}} & $N$ & ${N_{\mathrm{u}}=1}$ & ${N_{\mathrm{u}}=2}$ &
+			${N_{\mathrm{u}}=3}$ &
+			${N_{\mathrm{u}}=4}$ &
+			${N_{\mathrm{u}}=5}$ &
+			${N_{\mathrm{u}}=10}$ &
+			${N_{\mathrm{u}}=15}$ &
+			${N_{\mathrm{u}}=20}$ &
+			${N_{\mathrm{u}}=30}$\\
+			\hline
+			NPL\rule{0pt}{3.5mm} & \phantom{0}5 & 0,3954 & 0,5326 & 0,8482 & 1,2868 & 1,9179 & \textemdash & \textemdash & \textemdash & \textemdash\\
+			NO & \phantom{0}5 & 2,6129 & 5,0372 & 8,0029 & 12,6476 & 18,3668 & \textemdash & \textemdash & \textemdash & \textemdash\\
+			NO$_{\mathrm{apr}}$\rule[-1.5mm]{0pt}{3.5mm} & \phantom{0}5 & 2,4654 &  4,3206 & 7,9801 & 15,2479 & 26,5298 & \textemdash & \textemdash & \textemdash & \textemdash\\
+			\hline
+		\end{tabular}
+	\end{small}
+\end{sidewaystable}
+
+% !TEX encoding = utf8
+\chapter{Rysunki}
+\section{Wstawianie rysunków w~pliku źródłowym}
+Do wstawienia rysunków używamy otoczenia \verb|figure|. W~kodzie źródłowym umieszczamy polecenia:
+\begin{lstlisting}[style=customlatex,frame=single]
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.5]{rysunki/kontynenty}
+	\caption{Kontynenty (wikipedia)}
+	\label{rys_kontynenty}
+\end{figure}
+\end{lstlisting}
+co w~dokumencie skutkuje wstawieniem rys. \ref{rys_kontynenty}. Analogicznie jak w~przypadku wzorów matematycznych i~tabeli, poleceniem \verb|\label{rys_kontynenty}| nadajemy rysunkowi unikalny identyfikator. Aby odwołać się w~tekście do rysunku, wystarczy użyć polecenia \verb|\ref{rys_kontynenty}|. W~tekście źródłowym piszemy: \verb|rys. \ref{rys_kontynenty}|, co w~gotowym dokumencie zostaje złożone jako \emph{rys. \ref{rys_kontynenty}}.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{rysunki/kontynenty}
+\caption{Kontynenty (wikipedia)}
+\label{rys_kontynenty}
+\end{figure}
+
+\section{Narzędzia}
+Do wykonywania rysunków schematów blokowych można użyć wielu programów, np. komercyjny program \texttt{Corel Draw}. Jako darmowe narzędzie można polecić program \verb+draw.io+ (\url{https://www.drawio.com/}), natomiast przebiegi sygnałów należy wykonać w~programie \texttt{MATLAB} lub \texttt{Pyhthon} (w~zależności od wymagań). Reprezentacje graficzne modeli można również wykonać w~programie program \verb+draw.io+, ale najłatwiej i~najszybciej użyć do tego celu program \texttt{Simulink}, a~następnie skopiować jako grafikę (kopia ekranu) lub wykonać wydruk do pliku pdf.
+
+\section{Jakość plików graficznych}
+Aby otrzymać odpowiednią jakość dokumentu rekomendowane jest użycie rysunków w~formacie \verb+pdf+, ewentualnie \verb+png+, ale o~wysokiej rozdzielczości, np. 400 dpi. Nie używamy rysunków zapisanych w~formacie \verb+bmp+ lub \verb+jpg+, jedynym wyjątkiem są zdjęcia.
+
+\section{Podpisy osi}
+Osie każdego rysunku powinny być podpisane. Jeżeli jednak mamy kilka wykresów umieszczonych pionowo, a~na osi poziomej jest to samo oznaczenie (najczęściej czas), podpis można umieścić tylko pod ostatnim rysunkiem składowym.
+
+\section{Wiele wykresów na jednym rysunku}
+Jeżeli na jednym rysunku znajduje się kilka wykresów, należy na nim umieścić legendę, w~której definiuje się jakim zmiennym lub wartościom parametru odpowiadają kolejne przebiegi. Nie stosować wyjaśnień w~podpisie rysunku (lub w~tekście) typu: \emph{linią czerwoną oznaczono\ldots, linią przerywaną oznaczono\ldots,} itp.
+
+Na jednym wykresie umieszczamy zazwyczaj przebieg dla różnych wartości parametru, konfiguracji algorytmu lub warunków pracy. Umieszczenie kilku różnych przebiegów na jednym rysunku jest możliwe, ale tylko wówczas, gdy są one widoczne dla wybranego ustawienia zakresu osi. Na przykład, umieszczenie na rysunku dwóch funkcji, z~czego jedna przyjmuje bardzo małe wartości, a~druga bardzo duże, jest możliwe tylko wówczas, gdy zastosujemy logarytmiczną oś pionową. Jeżeli przebiegi mają istotnie różne wartości, możemy zastosować dwie osie pionowe (po prawej i~lewej stronie), wyskalowane w~odmienny sposób.
+
+\section{Wiele różnych wykresów na jednym rysunku}
+Jeżeli na jednym rysunku występuje kilka przebiegów i~nie są one położone blisko siebie, do kolejnych przebiegów stosujemy różne kolory, ale wszystkie mogą być narysowane linią ciągłą. Należy zastosować kolory różniące się od siebie w~znacznym stopniu, nie można stosować kolorów podobnych, np. kilku odcieni tego samego koloru. Najlepiej zastosować standardowy zestaw kolorów, dostępny w~języku \texttt{MATLAB} lub \texttt{Python}.
+
+\section{Wiele zbliżonych wykresów na jednym rysunku}
+Jeżeli na jednym rysunku występuje kilka przebiegów i~są one położone blisko siebie, oprócz różnych kolorów kolejnych przebiegów musimy zastosować różne rodzaje linii. Jeżeli, na przykład, na wykresie będzie linia ciągła, przerywana i~kropkowana, istotna jest kolejność rysowania kolejnych przebiegów. Zaczynamy od linii ciągłej, następnie rysujemy linę przerywaną, na końcu kropkowaną. Jeżeli linię ciągłą narysujemy jako ostatnią, może ona (częściowo) przykryć pozostałem dwa przebiegi.
+
+\section{Skalowanie osi}
+Jeżeli wyświetlamy kilka przebiegów czasowych na kilku rysunkach, należy zadbać aby skala czasu była taka sama. Jeżeli to możliwe, należy zadbać aby oś pionowa na rysunkach przedstawiających ten sam sygnał miała identyczny zakres.
+
+\section{Wielkość czcionki}
+Wielkość czcionki użytej w~podpisach osi oraz w~legendzie powinna być taka sama lub zbliżona do wielkości czcionki w~podpisie rysunku (jest ona zwykle nieco mniejsza niż czcionka użyta w~tekście). Bardzo duże czcionki są nienaturalne i~wizualnie psują wygląd dokumentu, natomiast czcionki zbyt małe uniemożliwiają interpretację wykresów.
+
+\section{Grubość linii}
+Należy zwrócić uwagę czy standardowa grubość linii stosowana na rysunkach dobrze prezentuje się w~dokumencie. Modyfikacje grubości linii są szczególnie konieczne wówczas, gdy znacząco zmieniamy wymiary rysunków (skalujemy).
+
+\section{Skalowanie rysunków}
+Najlepiej wykorzystać w~dokumencie rysunki o~oryginalnych wymiarach, ewentualnie minimalnie zmodyfikowanych. Aby zachować oryginalne wymiary rysunku, rysunek wstawiamy poleceniem
+\begin{lstlisting}[style=customlatex,frame=single]
+\includegraphics[scale=1]{plikrysunku}
+\end{lstlisting}
+Zachowanie oryginalnych wymiarów pozwala zachować wielkość znaków oraz grubość linii. Jeżeli skalowanie jest konieczne, staramy się aby skala tylko nieznacznie odbiegała od wartości 1.
+
+\section{Jednoczesne skalowanie wszystkich rysunków}
+Często w~całym dokumencie warto wprowadzić jednakowe (ale niewielkie) skalowanie rysunków. W~preambule dokumentu definiujemy skalę rysunków
+\begin{lstlisting}[style=customlatex,frame=single]
+\newcommand{\skalarysunkow}{liczba}
+\end{lstlisting}
+gdzie parametr \verb+liczba+ jest wspólną skalą wszystkich rysunków (liczba bliska wartości 1). Wymiary wszystkich rysunków uwzględniają skalę w~zależności od wymiarów oryginalnych plików z~rysunkami
+\begin{lstlisting}[style=customlatex,frame=single]
+\includegraphics[scale=\skalarysunkow\figurescale]{plikrysunku}
+\end{lstlisting}
+lub w~zależności od szerokości tekstu
+\begin{lstlisting}[style=customlatex,frame=single]
+\includegraphics[width=\skalarysunkow\textwidth]{plikrysunku}
+\end{lstlisting}
+Modyfikujemy wartość parametru \verb+liczba+ i~oceniamy czy dokument spełnia nasze wymagania, np. mieści się na założonej liczbie stron.
+
+\section{Polecenia plot i~stairs}
+Polecenie \verb+plot+ łączy kolejne punkty odcinkami, które aproksymują kolejne próbki danych. Wykorzystuje się je przy prezentacji wyników, których pomiar dokonywany jest w~dyskretnych chwilach, lecz wartości sygnału zmieniają się w~sposób ciągły, a~nie skokowy. Przykład: wykres przebiegu pozycji obiektu w~czasie (ogólnie: wyjścia procesu). Polecenie \verb+stairs+ łączy kolejne punkty odcinkami równoległymi do osi poziomej. Wykorzystuje się je do prezentacji wyników, których pomiar dokonywany jest w~dyskretnych chwilach, lecz wartości sygnału zmieniają się w~sposób skokowy, a~nie ciągły. Przykład: wykres sygnału okresowo zmieniającego się generowanego przez sterownik programowalny (ogólnie: sygnały wartości zadanych wyjść oraz sygnały sterujące). Różnice między wykresami sygnałów uzyskanymi polecenieniami \texttt{plot} i~\texttt{stairs} przedstawiono na rys. \ref{r_plot_stairs}.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=1]{rysunki/rysunek_plot_stairs}
+\caption{Przykładowe wykresy sygnałów uzyskane poleceniem \texttt{plot} i~\texttt{stairs}}
+\label{r_plot_stairs}
+\end{figure}
+
+\section{Nadmiar rysunków}
+Lepiej w~sprawozdaniu zamieścić zbyt dużo rysunków, przedstawiających wyniki dla wielu różnych kombinacji parametrów, niż przedstawić wyniki fragmentaryczne, np. tylko dla jednej kombinacji parametrów. Takie przedstawienie wyników automatycznie budzi podejrzenia, że algorytm działa poprawnie tylko dla wybranego zestawu parametrów.
+
+\section{Dobór kolorów}
+\subsection{\texttt{MATLAB}}
+Uwaga: nie stosujemy starej palety kolorów systemu \texttt{MATLAB}, przedstawionej w~tab.~\ref{r_zestaw_kolorow_MATLAB_historia}. Należy zastosować standardową paletę kolorów, użytą w~pakiecie \texttt{MATLAB} od wersji 2014b, która została przedstawiona w~tab.~\ref{r_zestaw_kolorow}.
+
+\definecolor{staryniebieski}{rgb}{0,0,1}
+\definecolor{staryczerwony}{rgb}{1,0,0}
+\definecolor{staryzolty}{rgb}{1,1,0}
+\definecolor{staryfioletowy}{rgb}{1,0,1}
+\definecolor{staryzielony}{rgb}{0,1,0}
+\definecolor{staryjasnoniebieski}{rgb}{0,1,1}
+\definecolor{czarny}{rgb}{0,0,0}
+
+\begin{table}[H]
+\caption{Stara paleta 7 kolorów systemu \texttt{MATLAB} (nie używać)}
+\label{r_zestaw_kolorow_MATLAB_historia}
+\renewcommand{\arraystretch}{1.25}
+	\centering
+	\begin{small}
+		\begin{tabular}{|p{3.5cm}|p{4cm}|}
+			\hline
+			%\multicolumn{1}{|c|}{Nazwa koloru\rule{0pt}{3.5mm}} & \multicolumn{1}{|c|}{} \\ \hline
+			\verb|'r': RGB=[1 0 0]| & \cellcolor{staryczerwony}\\
+			\verb|'g': RGB=[0 1 0]| & \cellcolor{staryzielony}\\
+			\verb|'b': RGB=[0 0 1]| & \cellcolor{staryniebieski}\\
+			\verb|'c': RGB=[0 1 1]| & \cellcolor{staryjasnoniebieski}\\
+			\verb|'m': RGB=[1 0 1]| & \cellcolor{staryfioletowy}\\
+			\verb|'y': RGB=[1 1 0]| & \cellcolor{staryzolty}\\
+			\verb|'k': RGB=[0 0 0]| & \cellcolor{czarny}\\
+			\hline
+		\end{tabular}
+	\end{small}
+\end{table}
+
+\definecolor{niebieski}{rgb}{0,0.447,0.741}
+\definecolor{czerwony}{rgb}{0.85,0.325,0.098}
+\definecolor{zolty}{rgb}{0.929,0.694,0.125}
+\definecolor{fioletowy}{rgb}{0.494,0.184,0.556}
+\definecolor{zielony}{rgb}{0.466,0.674,0.188}
+\definecolor{jasnoniebieski}{rgb}{0.301,0.745,0.933}
+\definecolor{ciemnioczerwony}{rgb}{0.635,0.078,0.184}
+
+\begin{table}[H]
+\caption{Standardowa paleta 7 kolorów}
+\label{r_zestaw_kolorow}
+\renewcommand{\arraystretch}{1.25}
+	\centering
+	\begin{small}
+		\begin{tabular}{|p{5cm}|p{4cm}|}
+			\hline
+			%\multicolumn{1}{|c|}{Nazwa koloru\rule{0pt}{3.5mm}} & \multicolumn{1}{|c|}{} \\ \hline
+			\verb|RGB=[0 0.4470 0.7410]| & \cellcolor{niebieski}\\
+			\verb|RGB=[0.8500 0.3250 0.0980]| & \cellcolor{czerwony}\\
+			\verb|RGB=[0.9290 0.6940 0.1250]| & \cellcolor{zolty}\\
+			\verb|RGB=[0.4940 0.1840 0.5560]| & \cellcolor{fioletowy}\\
+			\verb|RGB=[0.4660 0.6740 0.1880]| & \cellcolor{zielony}\\
+			\verb|RGB=[0.3010 0.7450 0.9330]| & \cellcolor{jasnoniebieski}\\
+			\verb|RGB=[0.6350 0.0780 0.1840]| & \cellcolor{ciemnioczerwony}\\
+			\hline
+		\end{tabular}
+	\end{small}
+\end{table}
+
+Aktualne wersje systemu \texttt{MATLAB} automatycznie stosują kolejne kolory dla kolejnych poleceń \verb+plot+ lub \verb+stairs+ z~ze standardowej palety kolorów, przedstawionej w~tab. \ref{r_zestaw_kolorow}. Nie musimy stosować żadnych identyfikatorów kolorów. Co ważne, nie stosujemy identyfikatorów kolorów postaci \verb+'r'+, \verb+'g'+, \verb+'b'+, \verb+'c'+, \verb+'m'+, \verb+'y'+, \verb+'k'+, które wymuszają zastosowanie starej palety kolorów. Rozważmy plik \verb+kolory_matlab.m+ z~katalogu \verb+rysunki/programy+:
+\lstinputlisting[style=custommatlab]{./rysunki/programy/kolory_matlab.m}
+Powyższy skrypt generuje dwa rysunki, przy czym na pierwszym z~nich kolejne kolory są dobierane automatycznie, co osiągamy nie definiując żadnych identyfikatorów kolorów, na drugim rysunku używamy historycznej palety kolorów. Otrzymane rezultaty zamieszczono na rys. \ref{r_wykres_kolory1} i~rys. \ref{r_wykres_kolory2}. Kolory z~historycznej palety są zbyt jaskrawe, szczególnie zielony i~żółty.
+
+Od wersji 2023b system \texttt{MATLAB} oferuje dodatkowo następujące palety kolorów: \verb+gem12+, \verb+glow+, \verb+glow12+, \verb+sail+, \verb+reef+, \verb+meadow+, \verb+dye+, \verb+earth+. Paleta standardowa ma nazwę \verb+gem+ (lub \verb+default+).
+
+Poleceniem
+\begin{lstlisting}[style=custommatlab,frame=single]
+set(0,'defaulttextinterpreter','latex')
+\end{lstlisting}
+aktywujemy interpreter \LaTeX a do oznaczeń osi wykresów, tytułów i~legend. Poleceniami
+\begin{lstlisting}[style=custommatlab,frame=single]
+set(0,'DefaultLineLineWidth',1)
+\end{lstlisting}
+oraz
+\begin{lstlisting}[style=custommatlab,frame=single]
+set(0,'DefaultStairLineWidth',1)
+\end{lstlisting}
+ustawiamy standardową grubość linii dla wszystkich rysunków wykonywanych, odpowiednio, poleceniami \verb|plot| i~\verb|stairs|.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=1]{rysunki/matlab_wykres_kolory1}
+\caption{Przykładowy rysunek wykonany w~systemie \texttt{MATLAB}: prawidłowy dobór kolorów}
+\label{r_wykres_kolory1}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=1]{rysunki/matlab_wykres_kolory2}
+\caption{Przykładowy rysunek wykonany w~systemie \texttt{MATLAB}: nieprawidłowy dobór kolorów}
+\label{r_wykres_kolory2}
+\end{figure}
+
+\subsection{\texttt{Python}}
+Zastosujemy standardowy zestaw kolorów, który oferowany jest przez bibliotekę \verb+Matplotlib+. Analogicznie jak w~przypadku programu w~języku \texttt{MATLAB}, nie musimy stosować żadnych identyfikatorów kolorów, kolejne funkcje będą narysowane kolejnymi z~dostępnych kolorów. Rys. \ref{r_wykres_python} otrzymano w~wyniku uruchomienia pliku \verb+kolory_python.py+ z~katalogu \verb+rysunki/programy+:
+\lstinputlisting[style=custompython,frame=single]{rysunki/programy/kolory_python.py}
+
+Poleceniem
+\begin{lstlisting}[style=custompython,frame=single]
+plt.rcParams['text.usetex'] = True
+\end{lstlisting}
+aktywujemy interpreter \LaTeX a do oznaczeń osi wykresów, tytułów i~legend. Poleceniem
+\begin{lstlisting}[style=custompython,frame=single]
+plt.rcParams['lines.linewidth'] = 1
+\end{lstlisting}
+ustawiamy standardową grubość linii (dla wszystkich rysunków).
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=1]{rysunki/python_wykres}
+\caption{Przykładowy rysunek wykonany w~języku \texttt{Python}: prawidłowy dobór kolorów}
+\label{r_wykres_python}
+\end{figure}
+
+\section{Eksport rysunków}
+\subsection{\texttt{MATLAB}}
+\subsubsection{Wyniki symulacji wykonanych w~programie \texttt{Simulink}}
+Nie zamieszczamy w~sprawozdaniu zrzutów ekranu wyświetlaczy Scope, przykład podano na rys. \ref{r_scope_przekreslony}.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{rysunki/scope_przekreslony.png}
+\caption{Nie zamieszczamy w~sprawozdaniu zrzutów ekranu wyświetlaczy ,,Scope''}
+\label{r_scope_przekreslony}
+\end{figure}
+
+Wyniki symulacji, które zamierzamy narysować, przekazujemy z programu \texttt{Simulink} do systemu \texttt{MATLAB} przy użyciu bloku To Workspace (grupa Sinks). Jako format zapisu wyników (pole Save format) najlepiej wybrać Structure With Time (nie zapominamy wówczas o~wektorze czasu, musi być on podany jako pierwszy argument funkcji plot lub stairs). Dla symulacji z~czasem ciągłym jako okres próbkowania (Sample time) pozostawiamy $-1$, dla symulacji z~czasem dyskretnym -- podajemy wartość okresu próbkowania.
+
+\subsubsection{Nie powiększać rysunku na cały ekran}
+Rysunek wykonany w~systemie \texttt{MATLAB}, który następnie ma być zapisany w~pliku, nie powiększamy na cały ekran, gdyż ma on wówczas bardzo duże rozmiary i~wygenerowany pliki również będzie miał zbyt duży rozmiar. Przykład takiego rysunku przedstawiono na rys. \ref{r_plik400_duzy}. Jego czytelność jest bardzo zła (zbyt małe liczby i~symbole, zbyt cienkie linie).
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{rysunki/plik400_duzy.png}
+\caption{Nie zamieszczamy w~sprawozdaniu bardzo dużych rysunków (powiększonych na cały ekran)}
+\label{r_plik400_duzy}
+\end{figure}
+
+\subsubsection{Nie korzystamy z~menu rysunku w~celu zapisu pliku}
+Nie zapisujemy rysunku do pliku z~menu okienka z~rysunkiem (\texttt{File->Save as}), ponieważ nie mamy wówczas możliwości wyboru jakości (rozdzielczości) rysunku, jedynie format pliku. Rysunki bitmapowe zapisywane są w~bardzo niskiej rozdzielczości.
+
+\subsubsection{Metoda 1}
+Rysunki zapisujemy poleceniem print o~przykładowej składni
+\begin{lstlisting}[style=custommatlab,frame=single]
+print('rys.png','-dpng','-r400')
+\end{lstlisting}
+Warto zastosować format \texttt{png}, pozwalający zachować dobry kompromis między jakością a~wielkościa plików (pliki \texttt{jpg} wyglądają znacznie gorzej w~dokumencie). Ostatnią opcją w~powyższym przykładzie definiujemy rozdzielczość.
+
+Zapis do pliku \texttt{pdf} wymaga składni
+\begin{lstlisting}[style=custommatlab,frame=single]
+print('rys.pdf','-dpdf')
+\end{lstlisting}
+Pliki \texttt{pdf} są zapisywane w~postaci A4 z~dużą ilością wolnego miejsca. Dlatego w~przypadku zapisu rysunków do plików \texttt{pdf} polecane są metody 2 oraz 3.
+
+\texttt{MATLAB} ma problemy z~dołączaniem czcionek (wbudowania) do~plików \texttt{eps}.
+
+\subsubsection{Metoda 2}
+Do eksportu rysunków do formatów wektorowych \texttt{eps} lub \texttt{pdf} polecany jest darmowy program \url{export_fig} (ma on bardzo rozbudowane możliwości, obsługuje wiele formatów plików, w~tym bimapowe). Eksport rysunku do pliku w~formacie \texttt{pdf} wykonuje się poleceniem
+\begin{lstlisting}[style=custommatlab,frame=single]
+export_fig rys.pdf -transparent
+\end{lstlisting}
+
+\subsubsection{Metoda 3}
+Od wersji 2020a \texttt{MATLAB} oferuje funkcję \url{exportgraphics}, przykłady użycia są następujące
+\begin{lstlisting}[style=custommatlab,frame=single]
+exportgraphics(gcf,'rys.png','Resolution',400)
+exportgraphics(gcf,'rys.pdf')
+exportgraphics(gcf,'rys.pdf','ContentType','vector')
+\end{lstlisting}
+W~przypadku plików wektorowych polecana jest składnia
+\begin{lstlisting}[style=custommatlab,frame=single]
+exportgraphics(gcf,'rys.pdf','ContentType','vector')
+\end{lstlisting}
+co wymusza dołączenie do pliku czcionek.
+
+\subsection{\texttt{Python}}
+Do zapisu rysunków do plików wykorzystujemy polecenie \verb|savefig| z~biblioteki \verb|Matplotlib|
+\begin{lstlisting}[style=custompython,frame=single]
+plt.savefig("rys.png")
+plt.savefig("rys.pdf")
+\end{lstlisting}
+W~przypadku rysunków bitmapowych można oczywiście zdefiniować ich rozdzielczość
+\begin{lstlisting}[style=custompython,frame=single]
+plt.savefig("rys.png",dpi=400)
+\end{lstlisting}
+
+\section{Modyfikacja wielkości rysunków}
+\subsection{\texttt{MATLAB}}
+Małe modyfikacje wielkości pliku rysunku wstawionego do sprawozdania są dopuszczalne (zmniejszanie/zwiększanie pliku w~sprawozdaniu), ale zazwyczaj rysunku nie skalujemy. Najlepiej dołączać rysunki w~następujący sposób
+\begin{lstlisting}[style=customlatex,frame=single]
+\includegraphics[scale=1]{plik}
+\end{lstlisting}
+Umożliwia to zachowanie ustawionych w~systemie \texttt{MATLAB} lub języku \texttt{Python} poprawnych wielkości czcionek, grubości linii itp. Przykład prawidłowego rysunku pokazano na rys. \ref{r_plik400}.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=1]{rysunki/plik400.png}
+\caption{Rysunek o~poprawnych wymiarach (bez skalowania)}
+\label{r_plik400}
+\end{figure}
+
+Jeżeli zachodzi konieczność istotnego zmniejszenia/zwiększenia wielkości rysunków, można wykonać to ,,ręcznie'' w~systemie \texttt{MATLAB}, ale z~uwagi na wygodę i~powtarzalność, uniwersalnym rozwiązaniem jest zastosowania polecenia
+\begin{lstlisting}[style=custommatlab,frame=single]
+set(gcf,'Units','centimeters','Position', [pozycjax pozycjay ...
+ szerokość wysokość])
+\end{lstlisting}
+Rysunek o~zredukowanych wymiarach pokazano na rys. \ref{r_plik400_niski}.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=1]{rysunki/rys_niski.png}
+\caption{Rysunek o~poprawnych wymiarach (bez skalowania), redukcja wysokości wykonana w~systemie \texttt{MATLAB}}
+\label{r_plik400_niski}
+\end{figure}
+
+\subsection{\texttt{Python}}
+Do modyfikacji standardowych wymiarów rysunków służy polecenie
+\begin{lstlisting}[style=custompython,frame=single]
+plt.rcParams['figure.figsize'] = [szerokość,wysokość]
+\end{lstlisting}
+
+\section{Modyfikacja wielkości czcionek}
+\subsection{\texttt{MATLAB}}
+Do zmiany wielkości czcionki użytej na rysunku służy polecenie
+\begin{lstlisting}[style=custommatlab,frame=single]
+set(gca,'fontsize',rozmiarczcionki)
+\end{lstlisting}
+gdzie \verb|rozmiarczcionki| jest liczbą naturalną. Na rys. \ref{r_niski_czcionki} pokazano przykład rysunku, dla którego rozmiar czcionki został zredukowany. Zwróćmy uwagę, że w~opisany sposób ustawiamy wielkość wszystkich czcionek na rysunku, a~więc czcionek użytych do oznaczeń liczb na osiach, w~podpisach osi rysunku, tytule oraz legendzie. Czasami bardziej korzystne jest ustawienie np. mniejszych czcionek do oznaczeń liczb na osiach oraz zastosowanie większych czcionek w~pozostałych elementach składowych rysunków. Należy wówczas ustawić wielkość czcionek stosowanych dla poszczególnych elementów rysunku, na przykład
+\begin{lstlisting}[style=custommatlab,frame=single]
+xlabel('...','fontsize',rozmiarczcionki)
+ylabel('...','fontsize',rozmiarczcionki)
+title('...','fontsize',rozmiarczcionki)
+legend('...','...','...','fontsize',rozmiarczcionki)
+\end{lstlisting}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=1]{rysunki/rys_niski_czcionki.png}
+\caption{Rysunek o~poprawnych wymiarach (bez skalowania), redukcja wysokości oraz zmiana wielkości czcionek wykonane w~systemie \texttt{MATLAB}}
+\label{r_niski_czcionki}
+\end{figure}
+
+\subsection{\texttt{Python}}
+Dla każdego elementu rysunków można zmienić wielkość czcionki, na przykład:
+\begin{lstlisting}[style=custompython,frame=single]
+plt.xlabel(r'$x$', fontsize=10)
+plt.ylabel(r'$y$', fontsize=10)
+plt.xticks(fontsize=8)
+plt.yticks(fontsize=8)
+\end{lstlisting}
+
+\section{Modyfikacja separatora dziesiętnego}
+\subsection{\texttt{MATLAB}}
+Aby zmienić separator dziesiętny dla osi poziomej, stosujemy instrukcje
+\begin{lstlisting}[style=custommatlab,frame=single]
+etykiety=get(gca,'XTickLabel');
+etykiety=strrep(etykiety(:),'.',',');
+set(gca,'XTickLabel',etykiety);
+\end{lstlisting}
+Analogicznie postępujemy dla osi pionowej.
+
+\subsection{\texttt{Python}}
+Aby zmienić separator dziesiętny dla obu osi, stosujemy instrukcje
+\begin{lstlisting}[style=custompython,frame=single]
+_,axes=plt.subplots()
+locale.setlocale(locale.LC_NUMERIC,"de_DE.UTF-8")
+axes.ticklabel_format(useLocale=True)
+\end{lstlisting}
+
+
+
+
+% !TEX encoding = utf8
+\chapter{Listingi programów}
+Do zamieszczenia programów można zastosować otoczenie \verb+verbatim+, ale znacznie większe możliwości oferuje pakiet \verb+listings+. Przykładowy program w~języku C ma postać:
+\begin{lstlisting}[style=customc,frame=single]
+//Hello World in C
+#include <stdio.h>
+int main (void)
+{
+   puts ("Hello World!");
+   return 0;
+}
+\end{lstlisting}
+natomiast przykładowy program w~języku \verb+MATLAB+ jest następujący:
+%\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=custommatlab,frame=single]
+%Hello World in MATLAB
+clear all;
+
+disp('Hello World!');
+\end{lstlisting}
+%
+%\begin{lstlisting}[style=Matlab-editor]
+%%Hello World in MATLAB
+%clear all;
+%
+%disp('Hello World!');
+\end{lstlisting}

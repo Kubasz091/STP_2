@@ -1,0 +1,70 @@
+Sterowanie procesami - projekt II, zadanie 40 (termin oddania: 2 VI 2025)
+
+Obiekt regulacji jest opisany transmitancją:
+G(s)=(T1​s+1)(T2​s+1)Ko​e−To​s​
+gdzie Ko​=4,7, To​=5 T1​=1,92, T2​=4,96.
+Proszę:
+Wyznaczyć transmitancję dyskretną G(z). Należy przy tym zastosować ekstrapolator zero- wego rzędu i przyjąć okres próbkowania Tp​=0.5s. Porównać odpowiedź skokową i współ- czynnik wzmocnienia statycznego transmitancji ciągłej i dyskretnej.
+Na podstawie transmitancji dyskretnej wyznaczyć równanie różnicowe służące do oblicze- nia wielkości y(k) na podstawie sygnałów wejściowych i wyjściowych z chwil poprzednich
+y(k)=∑i=1n​bi​y(k−i)+∑i=1m​ci​u(k−i)
+Dla danego obiektu dobrać ciągły regulator PID metodą Zieglera-Nicholsa (Kr​=0,6Kk​,
+Ti​=0,5Tk​ Td​=0,12Tk​, gdzie Kk​ wzmocnienie krytyczne, Tk​ okres oscylacji).
+Wyznaczyć
+parametry r0​ r1​, r2​ dyskretnego regulatora PID.
+Napisać program do symulacji cyfrowego algorytmu PID oraz algorytmu DMC w wersji
+analitycznej, bez ograniczeń.
+Należy przyjąć stałą trajektorię referencyjną dla całego hory-
+zontu predykcji.
+Model z punktu drugiego proszę wykorzystać do wyznaczenia odpowie-
+dzi skokowej i symulacji obiektu.
+Dobrać parametry algorytmu DMC testując działanie układu regulacji dla skokowych
+zmian wartości zadanej, postępując w następujący sposób:
+a) Na podstawie odpowiedzi skokowej określić horyzont dynamiki D. Następnie, należy
+założyć początkową wartości współczynnika , np.
+λ=1 oraz długości horyzontów
+predykcji i sterowania takie same, jak horyzontu dynamiki (Nu​=N=D).
+Jeżeli regulator
+pracuje nieprawidłowo, proszę wydłużyć horyzont dynamiki.
+b) Stopniowo skracać horyzont predykcji i wybrać jego docelową długość (przy Nu​=N).
+c) Zbadać wpływ horyzontu sterowania na jakość regulacji (np. przyjąć kolejno Nu​=1,2,
+3, 4, 5, 10,..., N).
+Wybrać możliwie małą długość horyzontu sterowania.
+d) Dla ustalonych horyzontów zbadać wpływ współczynnika na jakość regulacji i wy-
+brać taką jego wartość, która zapewnia właściwy kompromis między szybkością regu-
+lacji a postacią sygnału sterującego.
+Skomentować rezultaty uzyskane w każdym podpunkcie i zamieścić wyniki symulacji (co
+najmniej po jednym rysunku z trzema odpowiedziami dla podpunktów b), c) i d)).
+6. Przy skokowej zmianie wartości zadanej porównać jakość regulacji cyfrowego algorytmu
+PID i algorytmu DMC dostrojonego w poprzednim punkcie.
+Wyznaczyć obszary stabilno-
+ści obu algorytmów, tzn. krzywą Ko​/Konom​ w funkcji To​/Tomom​, przyjmując T0​/T0nom​={1;
+1,1; 1,2; 1,3; 1,4; 1,5;
+1,6; 1,7; 1,8; 1,9; 2).
+Zadanie dodatkowe (punktowane dodatkowo w skali 0-5 pkt.)
+Napisać program do symulacji algorytmu GPC w wersji analitycznej, bez ograniczeń, ba- zującego na modelu z punktu drugiego.
+Przyjmując wartości parametrów algorytmu GPC takie same, jak finalne, dobrane dla algo- rytmu DMC w punkcie 5d), porównać działanie algorytmów GPC i DMC:
+a) przy skokowej zmianie wartości zadanej,
+
+b) przy skokowej zmianie niemierzalnego zakłócenia dodanego do wyjścia obiektu
+(i stałej wartości zadanej).
+9. Wyznaczyć obszary stabilności algorytmu GPC, tzn. krzywą Ko​/Konom​ w funkcji
+To​/Tonom​, przyjmując T0​/T0mom​={1;1,1;1,2;1,3;1,4;1,5;1,6;1,7;1,8;1,9;2}.
+Uwagi:
+a) Obliczenia należy wykonać w pakiecie MATLAB;
+nie należy korzystać z Simulinka.
+b) Sprawozdanie powinno zawierać opis przeprowadzonych eksperymentów, komentarz
+dotyczący otrzymanych wyników oraz wnioski.
+c) Sprawozdanie (plik PDF) oraz wszystkie pliki zawierające dobrze skomentowane
+programy, zebrane w jednym archiwum, powinny być zamieszczone na serwerze
+Studia do dnia oddania włącznie.
+Rozmiar spakowanego archiwum nie powinien
+przekraczać 5 MB.
+d) Za projekt można otrzymać do 20 punktów.
+Swój wynik można podnieść o maksimum 5
+punktów wykonując zadanie dodatkowe (punkty 7-9).
+e) Punktacja będzie pomniejszona maksymalnie o 5 punktów za niestaranne przedstawienie
+wyników (np. nieczytelne lub niskiej jakości wykresy, brak podpisów osi, brak legend).
+f) Oddanie sprawozdania po terminie wiąże się z odjęciem 1 punktu za każdy rozpo-
+częty dzień spóźnienia.
+Ze względu na koniec semestru wypadający w połowie
+czerwca, sprawozdanie należy dostarczyć najpóźniej do 11 czerwca.

@@ -1,0 +1,11 @@
+DMC_vs_GPC_disturbance.jpg
+DMC_vs_GPC_setpoint.jpg
+GPC_DMC_PID_stabilnosc_Ko_vs_To.jpg
+horyzont_predykcji_porownanie.jpg
+horyzont_sterowania_porownanie.jpg
+lambda_porownanie.jpg
+optimal_solution.jpg
+step.jpg
+wykresy_lista.txt
+zad1.jpg
+zad1_porownanie_odpowiedzi_skokowych.jpg

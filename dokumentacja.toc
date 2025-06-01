@@ -1,0 +1,24 @@
+\contentsline {chapter}{\numberline {1\relax .\enspace }Wstęp}{2}{}%
+\contentsline {chapter}{\numberline {2\relax .\enspace }Zadania projektowe}{3}{}%
+\contentsline {section}{\numberline {2.1\relax .\enspace }Analiza transmitancji obiektu}{3}{}%
+\contentsline {section}{\numberline {2.2\relax .\enspace }Wyprowadzenie równania różnicowego}{4}{}%
+\contentsline {section}{\numberline {2.3\relax .\enspace }Strojenie regulatora PID metodą Zieglera-Nicholsa}{4}{}%
+\contentsline {section}{\numberline {2.4\relax .\enspace }Synteza i~badanie regulatora DMC}{5}{}%
+\contentsline {subsection}{\numberline {2.4.1\relax .\enspace }Wyznaczenie horyzontu dynamiki}{5}{}%
+\contentsline {subsection}{\numberline {2.4.2\relax .\enspace }Badanie wpływu horyzontu predykcji $N$}{6}{}%
+\contentsline {subsection}{\numberline {2.4.3\relax .\enspace }Badanie wpływu horyzontu sterowania $N_u$}{6}{}%
+\contentsline {subsection}{\numberline {2.4.4\relax .\enspace }Badanie wpływu współczynnika kary za sterowanie $\lambda $}{7}{}%
+\contentsline {section}{\numberline {2.5\relax .\enspace }Porównanie regulatorów DMC i~PID}{8}{}%
+\contentsline {section}{\numberline {2.6\relax .\enspace }Porównanie regulatorów DMC i~GPC}{9}{}%
+\contentsline {subsection}{\numberline {2.6.1\relax .\enspace }Reakcja na zmianę wartości zadanej}{9}{}%
+\contentsline {subsection}{\numberline {2.6.2\relax .\enspace }Reakcja na zakłócenie}{10}{}%
+\contentsline {section}{\numberline {2.7\relax .\enspace }Badanie obszarów stabilności}{11}{}%
+\contentsline {chapter}{\numberline {3\relax .\enspace }Wnioski}{13}{}%
+\contentsline {chapter}{\numberline {4\relax .\enspace }Kod źródłowy}{14}{}%
+\contentsline {section}{\numberline {4.1\relax .\enspace }Główny skrypt projektu}{14}{}%
+\contentsline {section}{\numberline {4.2\relax .\enspace }Funkcje do analizy transmitancji i wyprowadzenia równania różnicowego}{15}{}%
+\contentsline {section}{\numberline {4.3\relax .\enspace }Funkcje do strojenia regulatora PID}{16}{}%
+\contentsline {section}{\numberline {4.4\relax .\enspace }Funkcje do projektowania i badania regulatora DMC}{17}{}%
+\contentsline {section}{\numberline {4.5\relax .\enspace }Funkcje do porównania regulatorów DMC i GPC}{20}{}%
+\contentsline {section}{\numberline {4.6\relax .\enspace }Funkcje do badania stabilności}{22}{}%
+\contentsline {section}{\numberline {4.7\relax .\enspace }Funkcje pomocnicze do symulacji}{23}{}%
