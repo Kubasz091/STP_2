@@ -20,7 +20,8 @@ zadanie2_rownanie_roznicowe(Gz);
 
 % Zadanie 3
 disp('--- Zadanie 3 ---');
-[param_pid, param_pid_ciagly] = zadanie3_strojenie_pid_ziegler_nichols(Gs, Tp);
+[param_pid, param_pid_ciagly] = zadanie3_strojenie_pid_ziegler_nichols(...
+    Gs, Tp);
 
 % Parametry symulacji
 param_sym = struct('len', 250, 'tp', 0.5, 'setpoint', 2);
@@ -32,15 +33,18 @@ param_dmc_opt = zadanie5_optymalizacja_dmc(Gz, param_pid, param_sym, wart_zad);
 
 % Zadanie 6
 disp('--- Zadanie 6 ---');
-zadanie6_porownanie_optymalne_dmc_pid(Gz, param_pid, param_dmc_opt, param_sym, wart_zad);
+zadanie6_porownanie_optymalne_dmc_pid(Gz, param_pid, param_dmc_opt, ...
+    param_sym, wart_zad);
 
 % Zadanie 8
 disp('--- Zadanie 8 ---');
-param_gpc = param_dmc_opt; % Parametry GPC takie same jak DMC
-zadanie8_porownanie_dmc_gpc(Gz, param_dmc_opt, param_gpc, param_pid, param_sym, wart_zad);
+param_gpc = param_dmc_opt; 
+zadanie8_porownanie_dmc_gpc(Gz, param_dmc_opt, param_gpc, param_pid, ...
+    param_sym, wart_zad);
 
 % Zadanie 9
 disp('--- Zadanie 9 ---');
-zadanie9_badanie_stabilnosci(param_pid, param_dmc_opt, param_gpc, Ko, To, T1, T2, Tp, param_sym);
+zadanie9_badanie_stabilnosci(param_pid, param_dmc_opt, param_gpc, Ko, To, ...
+    T1, T2, Tp, param_sym);
 
 disp('--- Koniec projektu ---');

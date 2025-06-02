@@ -167,7 +167,7 @@ Współczynniki wzmocnienia statycznego dla obu transmitancji są równe $K_s = 
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{kod/wykresy/zad1_porownanie_odpowiedzi_skokowych.jpg}
+    \includegraphics[width=0.8\textwidth]{kod/wykresy/zad1.jpg}
     \caption{Porównanie odpowiedzi skokowych obiektu ciągłego $G(s)$ i~dyskretnego $G(z)$ dla okresu próbkowania $T_p = 0,5$ s}
     \label{fig:odp_skokowe}
 \end{figure}
@@ -199,16 +199,16 @@ Regulator PID został dostrojony metodą Zieglera-Nicholsa z~wykorzystaniem para
 
 Zgodnie z~zasadami Zieglera-Nicholsa, obliczono parametry ciągłego regulatora PID:
 \begin{itemize}
-    \item $K_r = 0,19536$ (współczynnik wzmocnienia)
-    \item $T_i = 7,5767$ s (stała czasowa całkowania)
-    \item $T_d = 0,89102$ s (stała czasowa różniczkowania)
+    \item $K_r = 0,16745$ (współczynnik wzmocnienia)
+    \item $T_i = 8,8395$ s (stała czasowa całkowania)
+    \item $T_d = 0,76373$ s (stała czasowa różniczkowania)
 \end{itemize}
 
 Co odpowiada następującym współczynnikom $K_p$, $K_i$ i~$K_d$:
 \begin{itemize}
-    \item $K_p = 0,19536$ (wzmocnienie członu proporcjonalnego)
-    \item $K_i = 0,025784$ (wzmocnienie członu całkującego)
-    \item $K_d = 0,17407$ (wzmocnienie członu różniczkującego)
+    \item $K_p = 0,16745$ (wzmocnienie członu proporcjonalnego)
+    \item $K_i = 0,018943$ (wzmocnienie członu całkującego)
+    \item $K_d = 0,12789$ (wzmocnienie członu różniczkującego)
 \end{itemize}
 
 Na podstawie tych wartości wyznaczono parametry dyskretnego regulatora PID w~postaci równania różnicowego:
@@ -218,9 +218,9 @@ Na podstawie tych wartości wyznaczono parametry dyskretnego regulatora PID w~po
 
 gdzie:
 \begin{itemize}
-    \item $r_0 = 0,55639$
-    \item $r_1 = -0,89163$
-    \item $r_2 = 0,34814$
+    \item $r_0 = 0,4327$
+    \item $r_1 = -0,679$
+    \item $r_2 = 0,25577$
 \end{itemize}
 
 System wyświetlił ostrzeżenie, że układ zamknięty z~otrzymanymi parametrami może być niestabilny, co wskazuje na trudności w~regulacji tego obiektu przy użyciu standardowego regulatora PID. Jest to typowe dla obiektów z~dużym opóźnieniem transportowym.
@@ -275,13 +275,13 @@ Współczynnik $\lambda$ odpowiada za wagę członu kary za przyrosty sterowania
     \label{fig:lambda_comparison}
 \end{figure}
 
-Z~rysunku \ref{fig:lambda_comparison} wynika, że dla małych wartości $\lambda$ (np. $0,1$) układ reaguje szybko, ale sterowanie może być agresywne. Dla większych wartości $\lambda$ (np. $5$ czy $10$) odpowiedź jest wolniejsza i~łagodniejsza. Jako optymalną wartość wybrano $\lambda = 0,1$, która zapewnia szybką odpowiedź przy akceptowalnym profilu sterowania.
+Z~rysunku \ref{fig:lambda_comparison} wynika, że dla małych wartości $\lambda$ (np. $0,1$) układ reaguje szybko, ale sterowanie może być agresywne. Dla większych wartości $\lambda$ (np. $5$ czy $10$) odpowiedź jest wolniejsza i~łagodniejsza. Po przeprowadzeniu badań jako optymalną wartość wybrano $\lambda = 0,5$, która zapewnia dobry kompromis między szybkością odpowiedzi a~łagodnością profilu sterowania.
 
 Po przeprowadzeniu powyższych badań ustalono optymalne parametry regulatora DMC:
 \begin{itemize}
     \item Horyzont predykcji $N = 20$
     \item Horyzont sterowania $N_u = 5$
-    \item Współczynnik kary $\lambda = 0,1$
+    \item Współczynnik kary $\lambda = 0,5$
 \end{itemize}
 
 \section{Porównanie regulatorów DMC i~PID}
@@ -331,17 +331,17 @@ W ostatnim etapie projektu przeprowadzono badanie obszarów stabilności regulat
 
 Wyniki symulacji:
 \begin{itemize}
-    \item To=5,00, Ko\_kryt: GPC=18,40, DMC=13,60, PID=10,40
-    \item To=5,50, Ko\_kryt: GPC=18,50, DMC=13,80, PID=9,60
-    \item To=6,00, Ko\_kryt: GPC=19,40, DMC=13,90, PID=9,10
-    \item To=6,50, Ko\_kryt: GPC=22,00, DMC=14,00, PID=8,70
-    \item To=7,00, Ko\_kryt: GPC=31,60, DMC=14,00, PID=8,20
-    \item To=7,50, Ko\_kryt: GPC=30,40, DMC=14,30, PID=7,70
-    \item To=8,00, Ko\_kryt: GPC=43,70, DMC=15,70, PID=7,30
-    \item To=8,50, Ko\_kryt: GPC=2,60, DMC=12,50, PID=7,00
-    \item To=9,00, Ko\_kryt: GPC=4,20, DMC=21,50, PID=7,00
-    \item To=9,50, Ko\_kryt: GPC=0,00, DMC=0,00, PID=6,90
-    \item To=10,00, Ko\_kryt: GPC=0,00, DMC=0,00, PID=6,70
+    \item To=5,00, Ko\_kryt: GPC=41,20, DMC=30,50, PID=12,50
+    \item To=5,50, Ko\_kryt: GPC=41,40, DMC=30,70, PID=11,60
+    \item To=6,00, Ko\_kryt: GPC=43,30, DMC=31,00, PID=10,90
+    \item To=6,50, Ko\_kryt: GPC=49,00, DMC=31,30, PID=10,70
+    \item To=7,00, Ko\_kryt: GPC=70,70, DMC=30,50, PID=10,10
+    \item To=7,50, Ko\_kryt: GPC=68,00, DMC=31,90, PID=9,60
+    \item To=8,00, Ko\_kryt: GPC=97,70, DMC=35,00, PID=9,10
+    \item To=8,50, Ko\_kryt: GPC=5,70, DMC=27,90, PID=8,70
+    \item To=9,00, Ko\_kryt: GPC=9,40, DMC=47,90, PID=8,50
+    \item To=9,50, Ko\_kryt: GPC=0,00, DMC=0,00, PID=8,80
+    \item To=10,00, Ko\_kryt: GPC=0,00, DMC=0,00, PID=8,40
 \end{itemize}
 
 Na rysunku \ref{fig:stability} przedstawiono otrzymane krzywe graniczne stabilności.
@@ -355,9 +355,9 @@ Na rysunku \ref{fig:stability} przedstawiono otrzymane krzywe graniczne stabilno
 
 Na osiach wykresu przedstawiono względne zmiany parametrów $T_o/T_{o,nom}$ oraz $K_o/K_{o,nom}$. Obszar stabilności leży poniżej krzywych dla każdego z~regulatorów - dla danego opóźnienia $T_o/T_{o,nom}$, system jest stabilny jeśli $K_o/K_{o,nom} < K_{o,kryt}/K_{o,nom}$.
 
-Widoczne jest, że regulatory predykcyjne (DMC i~GPC) mają znacznie szerszy obszar stabilności niż regulator PID, szczególnie dla większych opóźnień. Regulator GPC wykazuje największą odporność na wzrost opóźnienia transportowego, co jest jego istotną zaletą w~zastosowaniach przemysłowych.
+Widoczne jest, że regulatory predykcyjne (DMC i~GPC) mają znacznie szerszy obszar stabilności niż regulator PID, szczególnie dla większych opóźnień. Regulator GPC wykazuje największą odporność na wzrost opóźnienia transportowego, co jest jego istotną zaletą w~zastosowaniach przemysłowych, zgodnie z~teorią regulacji predykcyjnej.
 
-Warto odnotować, że dla bardzo dużych opóźnień (To > 9,0) wszystkie regulatory tracą stabilność nawet przy niewielkim wzroście wzmocnienia obiektu. Jest to zgodne z~intuicją, ponieważ duże opóźnienie transportowe jest jednym z~najtrudniejszych wyzwań w~regulacji.
+Warto odnotować, że dla bardzo dużych opóźnień (To > 9,0) wszystkie regulatory tracą stabilność nawet przy niewielkim wzroście wzmocnienia obiektu. Jest to zgodne z~teorią sterowania, ponieważ duże opóźnienie transportowe jest jednym z~najtrudniejszych wyzwań w~regulacji.
 
 \chapter{Wnioski}
 
@@ -368,7 +368,7 @@ Na podstawie przeprowadzonych badań można sformułować następujące wnioski:
 
     \item Parametry regulatora DMC ($N$, $N_u$, $\lambda$) mają istotny wpływ na jakość regulacji. Horyzont predykcji $N$ powinien być wystarczająco duży, aby uwzględnić pełną odpowiedź obiektu. Horyzont sterowania $N_u$ wpływa na agresywność sterowania - większe wartości prowadzą do szybszej, ale bardziej oscylacyjnej odpowiedzi. Współczynnik $\lambda$ pozwala na kompromis między szybkością regulacji a~łagodnością sterowania.
 
-    \item Regulator GPC wykazuje lepsze właściwości niż DMC w~zakresie kompensacji zakłóceń oraz odporności na zmiany parametrów obiektu, szczególnie opóźnienia transportowego. Wynika to z~odmiennego sposobu modelowania obiektu i~predykcji.
+    \item Regulator GPC wykazuje lepsze właściwości niż DMC w~zakresie kompensacji zakłóceń oraz odporności na zmiany parametrów obiektu, szczególnie opóźnienia transportowego. Wynika to z~odmiennego sposobu modelowania obiektu i~predykcji - GPC wykorzystuje model w~postaci równania różnicowego, co pozwala na dokładniejsze odzwierciedlenie dynamiki systemu.
 
     \item Obszar stabilności regulatorów predykcyjnych jest znacznie szerszy niż regulatora PID, co czyni je bardziej odpornymi na zmiany parametrów obiektu. Jest to szczególnie istotne w~przypadku procesów o~zmiennych parametrach lub niepewności modelowania.
 \end{enumerate}

@@ -8,4 +8,3 @@ optimal_solution.jpg
 step.jpg
 wykresy_lista.txt
 zad1.jpg
-zad1_porownanie_odpowiedzi_skokowych.jpg

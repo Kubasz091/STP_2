@@ -1,0 +1,72 @@
+--- Zadanie 1 ---
+Transmitancja ciągła G(s):
+
+Gs =
+ 
+                       4.7
+  exp(-5*s) * ----------------------
+              9.523 s^2 + 6.88 s + 1
+ 
+Continuous-time transfer function.
+Model Properties
+Transmitancja dyskretna G(z):
+
+Gz =
+ 
+             0.05477 z + 0.04856
+  z^(-10) * ----------------------
+            z^2 - 1.675 z + 0.6968
+ 
+Sample time: 0.5 seconds
+Discrete-time transfer function.
+Model Properties
+Współczynnik wzmocnienia statycznego G(s), K_s = G(0): 4.7
+Współczynnik wzmocnienia statycznego G(z), K_z = G(1): 4.7
+--- Zadanie 2 ---
+Równanie różnicowe:
+y(k) = 1.6748*y(k-1) - 0.69682*y(k-2) - 0*u(k-10) + 0.054771*u(k-11) + 0.048559*u(k-12)
+--- Zadanie 3 ---
+Warning: The closed-loop system is unstable. 
+> In DynamicSystem/margin (line 77)
+In zadanie3_strojenie_pid_ziegler_nichols (line 2)
+In stp2 (line 23) 
+Parametry krytyczne (Ziegler-Nichols):
+Wzmocnienie krytyczne Kk = 0.46514
+Okres oscylacji krytycznych Tk = 10.6074 s
+Pulsacja krytyczna omega_k = 0.59234 rad/s
+Parametry ciągłego regulatora PID (wg Zieglera-Nicholsa):
+Kr = 0.16745
+Ti = 8.8395 s
+Td = 0.76373 s
+Współczynniki Kp, Ki, Kd dla ciągłego regulatora PID:
+Kp = 0.16745
+Ki = 0.018943
+Kd = 0.12789
+Parametry r0, r1, r2 dyskretnego regulatora PID:
+Przyjęty okres próbkowania Tp = 0.5 s
+r0 = 0.4327
+r1 = -0.679
+r2 = 0.25577
+--- Zadanie 5 ---
+--- Optymalne parametry regulatora DMC ---
+N = 20
+Nu = 5
+lambda = 0.5
+--- Zadanie 6 ---
+--- Zadanie 8 ---
+--- Zadanie 9 ---
+To=5.00, Ko_kryt: GPC=41.20, DMC=30.50, PID=12.50
+To=5.50, Ko_kryt: GPC=41.40, DMC=30.70, PID=11.60
+To=6.00, Ko_kryt: GPC=43.30, DMC=31.00, PID=10.90
+To=6.50, Ko_kryt: GPC=49.00, DMC=31.30, PID=10.70
+To=7.00, Ko_kryt: GPC=70.70, DMC=30.50, PID=10.10
+To=7.50, Ko_kryt: GPC=68.00, DMC=31.90, PID=9.60
+To=8.00, Ko_kryt: GPC=97.70, DMC=35.00, PID=9.10
+To=8.50, Ko_kryt: GPC=5.70, DMC=27.90, PID=8.70
+To=9.00, Ko_kryt: GPC=9.40, DMC=47.90, PID=8.50
+To=9.50, Ko_kryt: GPC=0.00, DMC=0.00, PID=8.80
+To=10.00, Ko_kryt: GPC=0.00, DMC=0.00, PID=8.40
+ 
+Obszar stabilności: Dla danego To/To_nom, system jest stabilny dla Ko/Ko_nom < Ko_kryt/Ko_nom (poniżej krzywej).
+System jest niestabilny dla Ko > Ko_kryt (powyżej krzywej).
+--- Koniec projektu ---
