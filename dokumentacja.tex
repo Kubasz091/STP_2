@@ -78,8 +78,8 @@
 
 
 % --- Dane do strony tytułowej ---
-\title{\bf Sprawozdanie z laboratorium \\ Sterowanie Procesami \\ Temat: Regulatory predykcyjne}
-\author{Jakub Szubzda}
+\title{\bf Dokumentacja \\ Projekt II \\ Temat: Regulatory predykcyjne}
+\author{Jakub Szubzda 331145}
 \date{\today}
 
 % --- Definicja strony tytułowej ---
@@ -121,8 +121,8 @@ Wydział Elektroniki i~Technik Informacyjnych}}\\
 
 \chapter{Wstęp}
 
-Celem projektu laboratoryjnego było zapoznanie się z~regulatorami predykcyjnymi DMC (Dynamic Matrix Control) i~GPC (Generalized Predictive Control) oraz porównanie ich działania z~klasycznym regulatorem PID. Wykonano analizę obiektu inercyjnego drugiego rzędu z~opóźnieniem, zaprojektowano dla niego regulatory predykcyjne oraz przeprowadzono symulacje w~środowisku MATLAB/Simulink.
-
+Celem projektu było zapoznanie się z~regulatorami predykcyjnymi DMC (Dynamic Matrix Control) i~GPC (Generalized Predictive Control) oraz porównanie ich działania z~klasycznym regulatorem PID. Wykonano analizę obiektu inercyjnego drugiego rzędu z~opóźnieniem, zaprojektowano dla niego regulatory predykcyjne oraz przeprowadzono symulacje w~środowisku MATLAB.
+\\\\
 W ramach projektu zrealizowano następujące zadania:
 \begin{enumerate}
     \item Analiza transmitancji obiektu oraz jej reprezentacja w~postaci dyskretnej
@@ -148,7 +148,7 @@ Obiektem badań był układ inercyjny drugiego rzędu z~opóźnieniem, opisany t
 gdzie:
 \begin{itemize}
     \item $K_o = 4,7$ - współczynnik wzmocnienia statycznego
-    \item $T_o = 5$ s - opóźnienie transportowe
+    \item $T_o = 5$ s - opóźnienie
     \item $T_1 = 1,92$ s - pierwsza stała czasowa
     \item $T_2 = 4,96$ s - druga stała czasowa
 \end{itemize}
@@ -186,7 +186,7 @@ Równanie różnicowe wyprowadzone z~tej transmitancji:
     y(k) = 1,6748 \cdot y(k-1) - 0,69682 \cdot y(k-2) + 0,054771 \cdot u(k-11) + 0,048559 \cdot u(k-12)
 \end{equation}
 
-Ta postać pozwala na rekurencyjne obliczanie wyjścia procesu na podstawie poprzednich wartości wyjścia i~sterowania. Opóźnienie transportowe jest reprezentowane przez przesunięcie sygnału wejściowego o~10 okresów próbkowania ($u(k-10)$ i~później).
+Ta postać pozwala na rekurencyjne obliczanie wyjścia procesu na podstawie poprzednich wartości wyjścia i~sterowania. Opóźnienie transportowe jest reprezentowane przez przesunięcie sygnału wejściowego o~10 okresów próbkowania ($u(k-11)$ i~później).
 
 \section{Strojenie regulatora PID metodą Zieglera-Nicholsa}
 
@@ -229,7 +229,7 @@ System wyświetlił ostrzeżenie, że układ zamknięty z~otrzymanymi parametram
 
 \subsection{Wyznaczenie horyzontu dynamiki}
 
-Pierwszym krokiem w~syntezie regulatora DMC było wyznaczenie horyzontu dynamiki $D$, czyli liczby współczynników odpowiedzi skokowej koniecznych do poprawnego zamodelowania dynamiki obiektu. Na podstawie odpowiedzi skokowej obiektu (rysunek \ref{fig:step}) przyjęto $D = 60$, co odpowiada czasowi $30$ sekund (przy $T_p = 0,5$ s), po którym odpowiedź skokowa praktycznie osiąga stan ustalony.
+Pierwszym krokiem w~syntezie regulatora DMC było wyznaczenie horyzontu dynamiki $D$, czyli liczby współczynników odpowiedzi skokowej koniecznych do poprawnego zamodelowania dynamiki obiektu. Na podstawie odpowiedzi skokowej obiektu (rysunek \ref{fig:step}) przyjęto $D = 70$, co odpowiada czasowi $35$ sekund (przy $T_p = 0,5$ s), po którym odpowiedź skokowa praktycznie osiąga stan ustalony.
 
 \begin{figure}[H]
     \centering
@@ -240,7 +240,7 @@ Pierwszym krokiem w~syntezie regulatora DMC było wyznaczenie horyzontu dynamiki
 
 \subsection{Badanie wpływu horyzontu predykcji $N$}
 
-W regulatorze DMC horyzont predykcji $N$ określa, na ile kroków w~przyszłość prognozowane jest zachowanie obiektu. Aby zbadać wpływ tego parametru na jakość regulacji, przeprowadzono symulację dla różnych wartości $N$ przy ustalonych pozostałych parametrach. Na rysunku \ref{fig:N_comparison} przedstawiono porównanie odpowiedzi układu dla wartości $N \in \{20, 30, 40, 50, 60\}$, przy założeniu $N_u = N$ i~$\lambda = 1$.
+W regulatorze DMC horyzont predykcji $N$ określa, na ile kroków w~przyszłość prognozowane jest zachowanie obiektu. Aby zbadać wpływ tego parametru na jakość regulacji, przeprowadzono symulację dla różnych wartości $N$ przy ustalonych pozostałych parametrach. Na rysunku \ref{fig:N_comparison} przedstawiono porównanie odpowiedzi układu dla wartości $N \in \{10, 20, 40, 70\}$, przy założeniu $N_u = N$ i~$\lambda = 1$.
 
 \begin{figure}[H]
     \centering
@@ -249,11 +249,11 @@ W regulatorze DMC horyzont predykcji $N$ określa, na ile kroków w~przyszłoś�
     \label{fig:N_comparison}
 \end{figure}
 
-Z~analizy wynika, że dla $N < 30$ układ wykazuje słabsze tłumienie oscylacji. Przy większych wartościach odpowiedzi stają się bardziej stabilne, ale przy $N > 40$ dalsze zwiększanie horyzontu predykcji nie przynosi już znaczącej poprawy. Jako optymalną wybrano wartość $N = 20$.
+Z~analizy wynika, że $N = 20$ jest najmniejszą wartością, przy której układ działa poprawnie.
 
 \subsection{Badanie wpływu horyzontu sterowania $N_u$}
 
-Horyzont sterowania $N_u$ określa, na ile kroków w~przyszłość obliczane są przyrosty sterowania. Aby zbadać wpływ tego parametru, przeprowadzono symulacje dla stałego horyzontu predykcji $N = 20$ i~różnych wartości $N_u \in \{1, 5, 10, 20, 40, 60\}$.
+Horyzont sterowania $N_u$ określa, na ile kroków w~przyszłość obliczane są przyrosty sterowania. Aby zbadać wpływ tego parametru, przeprowadzono symulacje dla stałego horyzontu predykcji $N = 20$ i~różnych wartości $N_u \in \{1, 5, 15, 30, 50, 70\}$.
 
 \begin{figure}[H]
     \centering
@@ -262,7 +262,7 @@ Horyzont sterowania $N_u$ określa, na ile kroków w~przyszłość obliczane są
     \label{fig:Nu_comparison}
 \end{figure}
 
-Z~rysunku \ref{fig:Nu_comparison} wynika, że dla małych wartości $N_u$ (szczególnie $N_u = 1$) odpowiedź układu jest wolniejsza, ale za to łagodniejsza. Wraz ze wzrostem $N_u$ odpowiedź staje się szybsza, ale pojawia się przesterowanie i~większe oscylacje sterowania. Jako kompromis między szybkością a~jakością wybrano $N_u = 5$.
+Z~rysunku \ref{fig:Nu_comparison} wynika, że dla małych wartości $N_u$ (szczególnie $N_u = 1$) odpowiedź układu jest wolniejsza, ale za to łagodniejsza. Wraz ze wzrostem $N_u$ odpowiedź staje się szybsza. Wybrano $N_u = 5$.
 
 \subsection{Badanie wpływu współczynnika kary za sterowanie $\lambda$}
 
@@ -301,7 +301,7 @@ Regulator DMC wykazuje lepszą jakość regulacji niż PID - charakteryzuje się
 
 \subsection{Reakcja na zmianę wartości zadanej}
 
-Porównano działanie regulatorów DMC i~GPC przy jednakowych parametrach ($N = 20$, $N_u = 5$, $\lambda = 0,1$). Na rysunku \ref{fig:dmc_gpc_setpoint} przedstawiono odpowiedź układu na zmianę wartości zadanej.
+Porównano działanie regulatorów DMC i~GPC przy jednakowych parametrach ($N = 20$, $N_u = 5$, $\lambda = 0,5$). Na rysunku \ref{fig:dmc_gpc_setpoint} przedstawiono odpowiedź układu na zmianę wartości zadanej.
 
 \begin{figure}[H]
     \centering
@@ -310,7 +310,7 @@ Porównano działanie regulatorów DMC i~GPC przy jednakowych parametrach ($N = 
     \label{fig:dmc_gpc_setpoint}
 \end{figure}
 
-Zarówno regulator DMC, jak i~GPC zapewniają podobną jakość regulacji, jednak GPC charakteryzuje się nieco szybszą odpowiedzią i~mniejszym przeregulowaniem. Wynika to z~różnego sposobu modelowania obiektu w~tych algorytmach - DMC wykorzystuje model odpowiedzi skokowej, a~GPC - model w~postaci równania różnicowego.
+Zarówno regulator DMC, jak i~GPC zapewniają podobną jakość regulacji, jednak GPC charakteryzuje się nieco szybszą odpowiedzią i~większymi oscylacjami. Wynika to z~różnego sposobu modelowania obiektu w~tych algorytmach - DMC wykorzystuje model odpowiedzi skokowej, a~GPC - model w~postaci równania różnicowego.
 
 \subsection{Reakcja na zakłócenie}
 
@@ -323,7 +323,7 @@ Przeprowadzono również test odporności na zakłócenie działające na wyjśc
     \label{fig:dmc_gpc_disturbance}
 \end{figure}
 
-W przypadku zakłócenia regulator GPC wykazuje szybszą reakcję i~lepsze tłumienie jego wpływu. Regulator DMC również skutecznie kompensuje zakłócenie, ale potrzebuje nieco więcej czasu. Wynika to z~różnych modeli procesu i~algorytmu predykcji zakłóceń.
+W przypadku zakłócenia regulator GPC wykazuje szybszą reakcję ale więsze oscylacje. Regulator DMC również skutecznie kompensuje zakłócenie, potrzebuje nieco więcej czasu, ale za to jego sygnał sterujący jest mniej haotyczny. Wynika to z~różnych modeli procesu i~algorytmu predykcji zakłóceń.
 
 \section{Badanie obszarów stabilności}
 
@@ -355,23 +355,11 @@ Na rysunku \ref{fig:stability} przedstawiono otrzymane krzywe graniczne stabilno
 
 Na osiach wykresu przedstawiono względne zmiany parametrów $T_o/T_{o,nom}$ oraz $K_o/K_{o,nom}$. Obszar stabilności leży poniżej krzywych dla każdego z~regulatorów - dla danego opóźnienia $T_o/T_{o,nom}$, system jest stabilny jeśli $K_o/K_{o,nom} < K_{o,kryt}/K_{o,nom}$.
 
-Widoczne jest, że regulatory predykcyjne (DMC i~GPC) mają znacznie szerszy obszar stabilności niż regulator PID, szczególnie dla większych opóźnień. Regulator GPC wykazuje największą odporność na wzrost opóźnienia transportowego, co jest jego istotną zaletą w~zastosowaniach przemysłowych, zgodnie z~teorią regulacji predykcyjnej.
+Widoczne jest, że regulatory predykcyjne (DMC i~GPC) mają znacznie szerszy obszar stabilności niż regulator PID. Regulator DMC wykazuje największą odporność na wzrost opóźnienia transportowego.
 
-Warto odnotować, że dla bardzo dużych opóźnień (To > 9,0) wszystkie regulatory tracą stabilność nawet przy niewielkim wzroście wzmocnienia obiektu. Jest to zgodne z~teorią sterowania, ponieważ duże opóźnienie transportowe jest jednym z~najtrudniejszych wyzwań w~regulacji.
+Warto odnotować, że dla bardzo dużych opóźnień wszystkie regulatory tracą stabilność nawet przy niewielkim wzroście wzmocnienia obiektu. Jest to zgodne z~teorią sterowania, ponieważ duże opóźnienie transportowe jest jednym z~najtrudniejszych wyzwań w~regulacji.
 
 \chapter{Wnioski}
-
-Na podstawie przeprowadzonych badań można sformułować następujące wnioski:
-
-\begin{enumerate}
-    \item Regulatory predykcyjne (DMC i~GPC) zapewniają lepszą jakość regulacji niż klasyczny regulator PID, szczególnie dla obiektów z~opóźnieniem transportowym. Wykazują mniejsze przeregulowanie, krótszy czas regulacji i~lepsze tłumienie oscylacji.
-
-    \item Parametry regulatora DMC ($N$, $N_u$, $\lambda$) mają istotny wpływ na jakość regulacji. Horyzont predykcji $N$ powinien być wystarczająco duży, aby uwzględnić pełną odpowiedź obiektu. Horyzont sterowania $N_u$ wpływa na agresywność sterowania - większe wartości prowadzą do szybszej, ale bardziej oscylacyjnej odpowiedzi. Współczynnik $\lambda$ pozwala na kompromis między szybkością regulacji a~łagodnością sterowania.
-
-    \item Regulator GPC wykazuje lepsze właściwości niż DMC w~zakresie kompensacji zakłóceń oraz odporności na zmiany parametrów obiektu, szczególnie opóźnienia transportowego. Wynika to z~odmiennego sposobu modelowania obiektu i~predykcji - GPC wykorzystuje model w~postaci równania różnicowego, co pozwala na dokładniejsze odzwierciedlenie dynamiki systemu.
-
-    \item Obszar stabilności regulatorów predykcyjnych jest znacznie szerszy niż regulatora PID, co czyni je bardziej odpornymi na zmiany parametrów obiektu. Jest to szczególnie istotne w~przypadku procesów o~zmiennych parametrach lub niepewności modelowania.
-\end{enumerate}
 
 Podsumowując, regulatory predykcyjne stanowią efektywne narzędzie do sterowania procesami, szczególnie w~przypadku obiektów trudnych (z opóźnieniem, niestabilnych, wielowymiarowych). Ich implementacja wymaga jednak dokładniejszego modelowania procesu oraz większej mocy obliczeniowej niż w~przypadku klasycznych regulatorów PID.
 
